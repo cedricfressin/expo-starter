@@ -1,0 +1,22 @@
+# Landing page — Mobile (iOS & Android)
+# Verifies the public landing page renders with header, content, and footer.
+#
+# Selector strategy: accessibilityLabel > visible text > testID (last resort)
+
+appId: ${APP_ID}
+tags:
+  - smoke
+  - feature:public
+  - platform:mobile
+---
+- launchApp:
+    clearState: true
+
+# Header is visible
+- assertVisible: "Header"
+
+# Landing page content
+- assertVisible: "Landing Page"
+
+# Footer is visible
+- assertVisible: "Footer"

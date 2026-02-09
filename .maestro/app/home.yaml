@@ -1,0 +1,19 @@
+# App home — Mobile (iOS & Android)
+# Verifies the main app screen renders after navigating via deep link.
+#
+# Selector strategy: accessibilityLabel > visible text > testID (last resort)
+
+appId: ${APP_ID}
+tags:
+  - smoke
+  - feature:app
+  - platform:mobile
+---
+- launchApp:
+    clearState: true
+
+# Navigate to app via deep link
+- openLink: expo-starter://app
+
+# App home content
+- assertVisible: "App"

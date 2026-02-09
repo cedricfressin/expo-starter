@@ -1,0 +1,19 @@
+# Maestro E2E Configuration
+# https://docs.maestro.dev
+
+# Flow discovery
+flows:
+  - "public/*"
+  - "app/*"
+
+# Flow execution settings
+executionOrder:
+  continueOnFailure: false
+
+# Platform Configuration
+platform:
+  ios:
+    snapshotKeyHonorModalViews: false
+    disableAnimations: true
+  android:
+    disableAnimations: true

@@ -1,0 +1,33 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "{APPLE_TEAM_ID}.{app_bundle_identifier}"
+        ],
+        "components": [
+          {
+            "/": "/*",
+            "comment": "Match all paths"
+          },
+          {
+            "/": "/api/*",
+            "exclude": true,
+            "comment": "Exclude API routes"
+          }
+        ]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "{APPLE_TEAM_ID}.{app_bundle_identifier}"
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "{APPLE_TEAM_ID}.{app_bundle_identifier}"
+    ]
+  }
+}

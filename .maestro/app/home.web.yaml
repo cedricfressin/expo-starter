@@ -1,0 +1,15 @@
+# App home — Web (Chromium)
+# Verifies the main app screen renders when navigating to /app.
+#
+# Selector strategy: accessibilityLabel > visible text > css: (web fallback)
+
+url: ${BASE_URL}/app
+tags:
+  - smoke
+  - feature:app
+  - platform:web
+---
+- launchApp
+
+# App home content
+- assertVisible: "App"

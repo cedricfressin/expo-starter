@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "anthropic.claude-code",
+    "biomejs.biome",
+    "coderabbit.coderabbit-vscode",
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "snyk-security.snyk-vulnerability-scanner",
+    "yoavbls.pretty-ts-errors"
+  ]
+}

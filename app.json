@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "Expo Starter",
+    "slug": "expo-starter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "expo-starter",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "{app_bundle_identifier}",
+      "associatedDomains": ["applinks:{app_production_url}"],
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "package": "{app_bundle_identifier}",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "{app_production_url}"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "server",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-router",
+        {
+          "unstable_useServerMiddleware": true
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "reactCompiler": true,
+      "tsconfigPaths": true,
+      "typedRoutes": true
+    }
+  }
+}

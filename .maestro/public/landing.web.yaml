@@ -1,0 +1,21 @@
+# Landing page — Web (Chromium)
+# Verifies the public landing page renders with header, content, and footer.
+#
+# Selector strategy: accessibilityLabel > visible text > css: (web fallback)
+
+url: ${BASE_URL}
+tags:
+  - smoke
+  - feature:public
+  - platform:web
+---
+- launchApp
+
+# Header is visible
+- assertVisible: "Header"
+
+# Landing page content
+- assertVisible: "Landing Page"
+
+# Footer is visible
+- assertVisible: "Footer"

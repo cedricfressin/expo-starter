@@ -1,0 +1,37 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+#
+assert_lefthook_installed: true
+
+pre-push:
+  jobs:
+    - name: audit
+      run: bun audit
+
+pre-commit:
+  jobs:
+    - name: typecheck
+      run: bun typecheck
+      glob: '*.{ts,tsx,json}'
+      stage_fixed: true
+
+    - name: lint
+      run: bun lint
+      glob: '*.{js,jsx,ts,tsx,json,jsonc,css}'
+      stage_fixed: true
+
+    - name: markdown
+      run: bun x prettier --write {staged_files}
+      glob: '**/*.md'
+      stage_fixed: true
+
+    - name: test
+      run: bun run test --findRelatedTests --passWithNoTests {staged_files}
+      glob: '*.{ts,tsx,json}'
+
+commit-msg:
+  commands:
+    commitlint:
+      run: bun x commitlint --edit {1}

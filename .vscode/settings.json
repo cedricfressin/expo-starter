@@ -1,0 +1,14 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    "source.sortMembers.biome": "explicit"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "emmet.showExpandedAbbreviation": "never",
+  "snyk.advanced.autoSelectOrganization": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
