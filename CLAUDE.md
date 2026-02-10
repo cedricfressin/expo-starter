@@ -1,6 +1,6 @@
-# Expo Starter
+# {app_name}
 
-Universal app (iOS, Android, Web) built with Expo.
+{app_description}
 
 ---
 

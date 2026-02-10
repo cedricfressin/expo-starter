@@ -1,6 +1,13 @@
-# Expo Starter
+> [!IMPORTANT]
+> **First-time setup** — Copy-paste this prompt into Claude Code:
+>
+> ```
+> Use AskUserQuestion to collect these values: App Name (display name), App Description, App Slug (kebab-case), Bundle ID (reverse-domain, e.g. com.company.app), Production URL (domain without https://), Apple Team ID (or skip). Then replace the placeholders across the codebase: `{app_name}` in app.json/README.md/CLAUDE.md, `{app_description}` in README.md/CLAUDE.md, `{app_slug}` in app.json/package.json, `{app_bundle_identifier}` in app.json/public/.well-known/*, `{app_production_url}` in app.json/app/+middleware.ts, `{APPLE_TEAM_ID}` in public/.well-known/apple-app-site-association. After replacements, remove this IMPORTANT block from README.md, then run `rm bun.lock && bun install`.
+> ```
 
-Universal app (iOS, Android, Web) built with Expo.
+# {app_name}
+
+{app_description}
 
 ## Requirements
 
@@ -63,8 +70,8 @@ Then press:
 
 ### Maintenance
 
-| Command              | Description                                                |
-| -------------------- | ---------------------------------------------------------- |
-| `bun clean`          | Clean artifacts and caches (.expo, coverage, node_modules) |
-| `bun x expo-doctor`  | Check environment readiness for Expo                       |
-| `bun x snyk test`    | Run security vulnerability scan                            |
+| Command             | Description                                                |
+| ------------------- | ---------------------------------------------------------- |
+| `bun clean`         | Clean artifacts and caches (.expo, coverage, node_modules) |
+| `bun x expo-doctor` | Check environment readiness for Expo                       |
+| `bun x snyk test`   | Run security vulnerability scan                            |

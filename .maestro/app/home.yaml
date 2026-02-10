@@ -13,7 +13,7 @@ tags:
     clearState: true
 
 # Navigate to app via deep link
-- openLink: expo-starter://app
+- openLink: ${APP_ID}://app
 
 # App home content
 - assertVisible: "App"

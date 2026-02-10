@@ -1,5 +1,5 @@
 {
-  "name": "expo-starter",
+  "name": "{app_slug}",
   "author": "Céd. <hello@cedricfressin.com>",
   "main": "expo-router/entry",
   "version": "1.0.0",
@@ -7,7 +7,7 @@
     "prepare": "lefthook install",
     "dev": "expo start -c",
     "test": "jest",
-    "e2e": "maestro test .maestro/ -e APP_ID=expo-starter -e BASE_URL=http://localhost:8081",
+    "e2e": "maestro test .maestro/ -e APP_ID={app_slug} -e BASE_URL=http://localhost:8081",
     "lint": "ultracite fix",
     "typecheck": "tsc --noEmit",
     "clean": "git clean -xdf .expo coverage node_modules"

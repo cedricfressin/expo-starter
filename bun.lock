@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "expo-starter",
+      "name": "{app_slug}",
       "dependencies": {
         "@expo/html-elements": "^0.13.8",
         "@react-navigation/native": "^7.1.8",
