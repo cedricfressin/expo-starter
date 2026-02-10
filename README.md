@@ -25,6 +25,9 @@
 # Install dependencies
 bun install
 
+# Create environment file
+cp .env.template .env
+
 # Start development server
 bun dev
 ```
