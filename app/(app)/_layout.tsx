@@ -1,5 +1,10 @@
 import { Slot } from 'expo-router'
+import { AppProviders } from '~/features/app-providers'
 
 export default function AppLayout() {
-  return <Slot />
+  return (
+    <AppProviders>
+      <Slot />
+    </AppProviders>
+  )
 }

@@ -1,4 +1,5 @@
 import { Redirect, useLocalSearchParams } from 'expo-router'
+import Head from 'expo-router/head'
 import { Text, View } from 'react-native'
 
 export async function generateStaticParams() {
@@ -15,8 +16,15 @@ export default function Page() {
   }
 
   return (
-    <View>
-      <Text role="heading">Page (slug: "{slug}")</Text>
-    </View>
+    <>
+      <Head>
+        <title>
+          {slug} - {'{app_name}'}
+        </title>
+      </Head>
+      <View>
+        <Text role="heading">Page (slug: "{slug}")</Text>
+      </View>
+    </>
   )
 }

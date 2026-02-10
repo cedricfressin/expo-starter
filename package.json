@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "lefthook install",
     "dev": "expo start -c",
-    "build": "expo export -p web",
+    "build": "expo export -p web -s",
     "serve": "expo serve",
     "test": "jest",
     "e2e": "maestro test .maestro/ -e APP_ID={app_slug} -e BASE_URL=http://localhost:8081",

@@ -1,7 +1,8 @@
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
+import { Platform } from 'react-native'
 import '~/app/global.css'
-import { Providers } from '~/features/providers'
+import { RootProviders } from '~/features/root-providers'
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
@@ -12,15 +13,15 @@ export const unstable_settings = {
 }
 
 export default function RootLayout() {
-  const [fontLoaded] = useFonts({})
+  const [fontLoaded = true] = useFonts({})
 
-  if (!fontLoaded) {
+  if (Platform.OS !== 'web' && !fontLoaded) {
     return
   }
 
   return (
-    <Providers>
+    <RootProviders>
       <Stack screenOptions={{ headerShown: false }} />
-    </Providers>
+    </RootProviders>
   )
 }

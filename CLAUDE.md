@@ -46,6 +46,11 @@ lib/
 components/
 ├── ui/                  # React Native Reusables (shadcn-like)
 └── custom/              # Project-specific components
+
+public/                  # Static assets served as-is (robots.txt, favicon, etc.)
+
+tests/
+└── setup.ts             # Test helper: setup() wraps render + userEvent
 ```
 
 ---
@@ -68,6 +73,7 @@ components/
 - **Runner**: Jest + React Native Testing Library
 - **Selector priority**: `getByRole` > `getByText` > `getByTestId` (a11y-first)
 - **Location**: `__tests__/` folders next to source files
+- **Render**: Always use `setup()` from `~/tests/setup.ts` instead of bare `render()` — it wraps render with `userEvent.setup()`
 
 ---
 
