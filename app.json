@@ -53,6 +53,7 @@
       [
         "expo-router",
         {
+          "origin": "https://{app_production_url}",
           "unstable_useServerMiddleware": true
         }
       ],

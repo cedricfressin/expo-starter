@@ -6,6 +6,13 @@ const config = getDefaultConfig(__dirname)
 
 config.resolver.unstable_enablePackageExports = true
 
+config.transformer.minifierConfig = {
+  compress: {
+    // Removes all console logs statements in production.
+    drop_console: true
+  }
+}
+
 module.exports = withUniwindConfig(config, {
   // relative path to your global.css file (from previous step)
   cssEntryFile: './app/global.css',

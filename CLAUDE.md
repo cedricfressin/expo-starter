@@ -76,7 +76,8 @@ components/
 ### Core Commands
 
 - `bun dev` - Start development server
-- `bun run build` - Build the application
+- `bun run build` - Build the web output ready for production
+- `bun serve` - Serve the web build
 - `bun typecheck` - Run TypeScript validation
 - `bun lint` - Run Ultracite linter with auto-fix
 - `bun clean` - Clean artifacts/caches

@@ -42,7 +42,8 @@ Then press:
 | Command         | Description                                  |
 | --------------- | -------------------------------------------- |
 | `bun dev`       | Start Expo development server (clears cache) |
-| `bun run build` | Build the application                        |
+| `bun run build` | Build the web output ready for production    |
+| `bun serve`     | Serve the web build                          |
 
 ### Code Quality
 

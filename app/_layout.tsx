@@ -6,6 +6,11 @@ import { Providers } from '~/features/providers'
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
 
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: 'index'
+}
+
 export default function RootLayout() {
   const [fontLoaded] = useFonts({})
 

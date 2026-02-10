@@ -1,7 +1,29 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
+
+  // React Native platform extensions (.web.ts, .native.ts, .ios.ts, .android.ts)
+  // are invisible to knip — treat them as entry points
+  "entry": ["app/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}", "features/**/*.{ts,tsx}"],
+
+  // Expo bundles these — they resolve at build time, not from node_modules
+  "ignoreDependencies": [
+    // Peer dependency of ultracite
+    "@biomejs/biome",
+    // Expo bundled packages (resolved by metro, not node_modules)
+    "@expo/metro-config",
+    "babel-preset-expo",
+    "metro-minify-terser",
+    // Expo dev tools (CLI only)
+    "expo-atlas",
+    // Runtime deps resolved by Expo/uniwind (not directly imported)
+    "class-variance-authority",
+    "expo-splash-screen",
+    "tailwindcss-animate"
+  ],
+  "ignoreBinaries": ["maestro"],
   "ignore": [
     // Ignore coverage and generated files
-    "coverage/**"
+    "coverage/**",
+    "dist/**"
   ]
 }
