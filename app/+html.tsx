@@ -13,13 +13,16 @@ export default function Root({ children }: PropsWithChildren) {
       <head>
         <meta charSet="utf-8" />
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-        <meta content="app-id={itunes_id}" name="apple-itunes-app" />
         <meta
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
           name="viewport"
         />
-
         <meta content="{app_description}" name="description" />
+        <meta content="app-id={itunes_id}" name="apple-itunes-app" />
+
+        {/* Preconnect to known origins for faster resource fetching */}
+        {/* <link rel="preconnect" href="https://your-api.com" /> */}
+        {/* <link rel="dns-prefetch" href="https://your-api.com" /> */}
 
         {/*
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.

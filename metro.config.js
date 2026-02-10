@@ -9,7 +9,14 @@ config.resolver.unstable_enablePackageExports = true
 config.transformer.minifierConfig = {
   compress: {
     // Removes all console logs statements in production.
-    drop_console: true
+    drop_console: true,
+    dead_code: true,
+    unused: true,
+    // Run compression twice for better results
+    passes: 2
+  },
+  mangle: {
+    toplevel: true
   }
 }
 
