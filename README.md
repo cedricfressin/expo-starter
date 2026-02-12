@@ -1,3 +1,5 @@
+# {app_name}
+
 > [!IMPORTANT]
 > **First-time setup** — Copy-paste this prompt into Claude Code:
 >
@@ -5,7 +7,12 @@
 > Use AskUserQuestion to collect these values: App Name (display name), App Description, App Slug (kebab-case), Bundle ID (reverse-domain, e.g. com.company.app), Production URL (domain without https://), iTunes ID (for App Store listing), Apple Team ID (or skip). Then replace the placeholders across the codebase: `{app_name}` in app.json/README.md/CLAUDE.md, `{app_description}` in README.md/CLAUDE.md, `{app_slug}` in app.json/package.json, `{app_bundle_identifier}` in app.json/public/.well-known/*, `{app_production_url}` in app.json/app/+middleware.ts, `{itunes_id}` in app/+html.tsx, `{APPLE_TEAM_ID}` in public/.well-known/apple-app-site-association. After replacements, remove this IMPORTANT block from README.md, then run `rm bun.lock && bun install`.
 > ```
 
-# {app_name}
+> [!TIP]
+> **Mobile-only mode** — If you don't need web support, copy-paste this prompt into Claude Code:
+>
+> ```
+> Strip all web support from the project. Delete: app/(public)/, app/__tests__/, app/+html.tsx, app/+middleware.ts, app/index.tsx, features/navigation/, lib/services/toaster.web.ts, public/, .maestro/public/, .maestro/app/home.web.yaml. Remove deps: react-native-web, react-dom, sonner, @expo/html-elements, expo-server, @tanstack/react-query-devtools. In app.json: remove the "web" field and remove "unstable_useServerMiddleware" from the expo-router plugin. In package.json: remove "build" and "serve" scripts. In .maestro/config.yaml: remove the "public/*" flow entry. In features/app-providers.tsx: remove the React Query Devtools lazy import, the hasReactQueryDevtools check, and the conditional <Suspense>/<ReactQueryDevtools> render. In app/_layout.tsx: remove the Platform import and the `Platform.OS !== 'web'` font-loading guard. In app/(app)/index.tsx: remove the expo-router/head import and the <Head> component. Remove all remaining imports of "expo-router/head" across the codebase. After cleanup, update README.md (remove web references: the "w" shortcut, "build"/"serve" commands, web E2E commands) and update CLAUDE.md (remove web-specific sections: (public) routes, +middleware.ts, +html.tsx, .web.ts/.native.ts suffixes, public/ folder, toaster anti-pattern, web E2E commands/tags). Remove this TIP block from README.md, then run `rm bun.lock && bun install && bun typecheck && bun lint`.
+> ```
 
 {app_description}
 
