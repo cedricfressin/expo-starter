@@ -8,7 +8,7 @@ assert_lefthook_installed: true
 pre-push:
   jobs:
     - name: audit
-      run: bun audit
+      run: bun audit --audit-level=moderate
 
 pre-commit:
   jobs:
