@@ -6,5 +6,12 @@
       "package_name": "{app_bundle_identifier}",
       "sha256_cert_fingerprints": ["{android_sha256_cert_fingerprint}"]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "web",
+      "site": "https://{app_production_url}"
+    }
   }
 ]

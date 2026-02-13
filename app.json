@@ -17,7 +17,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "{app_bundle_identifier}",
-      "associatedDomains": ["applinks:{app_production_url}"],
+      "associatedDomains": [
+        "applinks:{app_production_url}",
+        "webcredentials:{app_production_url}",
+        "activitycontinuation:{app_production_url}"
+      ],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
