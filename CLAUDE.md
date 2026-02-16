@@ -12,6 +12,7 @@
 - **React 19** with React Compiler enabled
 - **Expo Router 6** - File-based routing with typed routes
 - **TanStack Query v5** - Server state management
+- **TanStack Form** - Form state management with composition API (`~/components/tanstack-form`)
 - **React Native Reusables** - shadcn/ui-style components for React Native
 - **Uniwind** - Universal Tailwind CSS v4 for React Native + Web
 - **TypeScript 5.9** strict mode
@@ -62,7 +63,7 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 ### Component Placement
 
 - **`src/components/ui/`** - React Native Reusables (shadcn-like primitives, added via CLI)
-- **`src/components/custom/`** - Project-wide reusable components (used across multiple features)
+- **`src/components/custom/`** - Cross-feature custom components not available in React Native Reusables
 - **`src/features/<name>/`** - Domain-specific UI + logic (components, hooks, types scoped to one feature)
 
 ### Testing Patterns
@@ -121,5 +122,6 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 
 ## Anti-Patterns (NEVER)
 
-- NEVER create new utils/hooks without checking `src/lib/utils/` and `src/lib/hooks/` first
+- NEVER create new utils/hooks without checking `~/lib/utils/` and `~/lib/hooks/` first
 - NEVER use `sonner` or `sonner-native` directly → use wrapper from `~/lib/services/toaster`
+- NEVER use raw `useForm` from `@tanstack/react-form` → use `useAppForm` from `~/components/tanstack-form` and exported composed components (`form.AppForm`, `form.AppField`, `field.Label`, `field.Input`, etc.)
