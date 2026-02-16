@@ -23,7 +23,9 @@ export default function Page() {
         </title>
       </Head>
       <View>
-        <Text role="heading">Page (slug: "{slug}")</Text>
+        <Text className="text-2xl font-bold text-foreground" role="heading">
+          Page (slug: "{slug}")
+        </Text>
       </View>
     </>
   )

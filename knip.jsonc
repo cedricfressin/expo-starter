@@ -13,6 +13,8 @@
     "@expo/metro-config",
     "babel-preset-expo",
     "metro-minify-terser",
+    // Buffer is used by SVG rendering
+    "buffer",
     // Expo dev tools (CLI only)
     "expo-atlas",
     // Runtime deps resolved by Expo/uniwind (not directly imported)

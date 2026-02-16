@@ -10,7 +10,7 @@ export function RootProviders({ children }: PropsWithChildren) {
 
   return (
     <ThemeProvider value={navTheme[theme]}>
-      <StatusBar style="auto" />
+      <StatusBar animated style="auto" />
       <SafeAreaListener
         onChange={({ insets }) => {
           Uniwind.updateInsets(insets)

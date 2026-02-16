@@ -78,6 +78,9 @@
       "tsconfigPaths": true,
       "typedRoutes": true
     },
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
     "updates": {
       "url": "https://u.expo.dev/{expo_id}",
       "enableBsdiffPatchSupport": true
