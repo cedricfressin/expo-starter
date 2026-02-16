@@ -7,14 +7,8 @@
     "icon": "./assets/images/icon.png",
     "scheme": "{app_slug}",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "icon": "./assets/expo.icon",
       "supportsTablet": true,
       "bundleIdentifier": "{app_bundle_identifier}",
       "associatedDomains": [
@@ -30,9 +24,12 @@
       "edgeToEdgeEnabled": true,
       "package": "{app_bundle_identifier}",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
+      "predictiveBackGestureEnabled": false,
       "intentFilters": [
         {
           "action": "VIEW",
@@ -63,12 +60,27 @@
           "unstable_useServerMiddleware": true
         }
       ],
-      "expo-secure-store"
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 76
+          }
+        }
+      ],
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "reactCompiler": true,
       "tsconfigPaths": true,
       "typedRoutes": true
+    },
+    "updates": {
+      "url": "https://u.expo.dev/{expo_id}",
+      "enableBsdiffPatchSupport": true
     }
   }
 }

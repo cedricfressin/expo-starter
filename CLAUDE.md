@@ -8,7 +8,7 @@
 
 ### Technology Stack
 
-- **Expo SDK 54** with React Native 0.81.5 (New Architecture)
+- **Expo SDK 55** (preview) with React Native 0.84.0 (New Architecture)
 - **React 19** with React Compiler enabled
 - **Expo Router 6** - File-based routing with typed routes
 - **TanStack Query v5** - Server state management
@@ -20,37 +20,34 @@
 ### Project Structure
 
 ```
-.maestro/                # E2E tests (Maestro — mobile + web)
-├── config.yaml          # Global settings
-├── subflows/            # Reusable flow fragments
-├── public/              # Marketing pages (mirrors app/(public)/)
-│   ├── landing.yaml     # Mobile flow
-│   └── landing-web.yaml # Web flow
-└── app/                 # App screens (mirrors app/(app)/)
-    ├── home.yaml        # Mobile flow
-    └── home-web.yaml    # Web flow
+.maestro/                    # E2E tests (Maestro — mobile + web)
+├── config.yaml              # Global settings
+├── subflows/                # Reusable flow fragments
+├── public/                  # Marketing pages (mirrors src/app/(public)/)
+│   ├── landing.yaml         # Mobile flow
+│   └── landing-web.yaml     # Web flow
+└── app/                     # App screens (mirrors src/app/(app)/)
+    ├── home.yaml            # Mobile flow
+    └── home-web.yaml        # Web flow
 
-app/                     # Expo Router pages
-├── (app)/               # Main application (iOS, Android, Web)
-├── (public)/            # Marketing website (landing pages)
-├── _layout.tsx          # Root layout with Providers
-└── +middleware.ts       # Server middleware (redirects between app and website)
+src/                         # Application source code
+├── app/                     # Expo Router pages
+│   ├── (app)/               # Main application (iOS, Android, Web)
+│   ├── (public)/            # Marketing website (landing pages)
+│   ├── _layout.tsx          # Root layout with Providers
+│   └── +middleware.ts       # Server middleware (redirects between app and website)
+├── features/                # Feature modules (domain logic + UI)
+├── lib/
+│   ├── hooks/               # Shared React hooks
+│   ├── services/            # API clients, storage, toaster, etc.
+│   └── utils/               # Pure utility functions
+├── components/
+│   ├── ui/                  # React Native Reusables (shadcn-like)
+│   └── custom/              # Project-specific components
+└── tests/
+    └── setup.ts             # Test helper: setup() wraps render + userEvent
 
-features/                # Feature modules (domain logic + UI)
-
-lib/
-├── hooks/               # Shared React hooks
-├── services/            # API clients, storage, toaster, etc.
-└── utils/               # Pure utility functions
-
-components/
-├── ui/                  # React Native Reusables (shadcn-like)
-└── custom/              # Project-specific components
-
-public/                  # Static assets served as-is (robots.txt, favicon, etc.)
-
-tests/
-└── setup.ts             # Test helper: setup() wraps render + userEvent
+public/                      # Static assets served as-is (robots.txt, favicon, etc.)
 ```
 
 ---
@@ -64,9 +61,9 @@ tests/
 
 ### Component Placement
 
-- **`components/ui/`** - React Native Reusables (shadcn-like primitives, added via CLI)
-- **`components/custom/`** - Project-wide reusable components (used across multiple features)
-- **`features/<name>/`** - Domain-specific UI + logic (components, hooks, types scoped to one feature)
+- **`src/components/ui/`** - React Native Reusables (shadcn-like primitives, added via CLI)
+- **`src/components/custom/`** - Project-wide reusable components (used across multiple features)
+- **`src/features/<name>/`** - Domain-specific UI + logic (components, hooks, types scoped to one feature)
 
 ### Testing Patterns
 
@@ -124,5 +121,5 @@ tests/
 
 ## Anti-Patterns (NEVER)
 
-- NEVER create new utils/hooks without checking `~/lib/utils/` and `~/lib/hooks/` first
+- NEVER create new utils/hooks without checking `src/lib/utils/` and `src/lib/hooks/` first
 - NEVER use `sonner` or `sonner-native` directly → use wrapper from `~/lib/services/toaster`

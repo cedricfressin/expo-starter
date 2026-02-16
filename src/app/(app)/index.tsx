@@ -8,7 +8,9 @@ export default function AppIndex() {
         <title>{'{app_name}'}</title>
       </Head>
       <View className="flex-1 p-safe">
-        <Text role="heading">App Index</Text>
+        <Text className="text-2xl font-bold" role="heading">
+          App Index
+        </Text>
       </View>
     </>
   )

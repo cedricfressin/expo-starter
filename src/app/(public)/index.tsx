@@ -8,7 +8,9 @@ export default function LandingPage() {
         <title>{'{app_name}'}</title>
       </Head>
       <View className="flex-1 p-safe">
-        <Text role="heading">Landing Page</Text>
+        <Text className="text-2xl font-bold" role="heading">
+          Landing Page
+        </Text>
       </View>
     </>
   )

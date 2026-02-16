@@ -22,8 +22,8 @@ config.transformer.minifierConfig = {
 
 module.exports = withUniwindConfig(config, {
   // relative path to your global.css file (from previous step)
-  cssEntryFile: './app/global.css',
+  cssEntryFile: './src/global.css',
   // (optional) path where we gonna auto-generate typings
   // defaults to project's root
-  dtsFile: './lib/types/uniwind-types.d.ts'
+  dtsFile: './src/uniwind-types.d.ts'
 })

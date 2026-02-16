@@ -2,9 +2,7 @@
 @import "uniwind";
 @import "tw-animate-css";
 
-@source "../components";
-@source "../features";
-@source "../lib";
+@source ".";
 
 @theme {
   --radius: 10px;

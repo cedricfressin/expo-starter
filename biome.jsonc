@@ -16,7 +16,7 @@
     }
   },
   "linter": {
-    "includes": ["!components/ui/**/*"],
+    "includes": ["!src/components/ui/**/*"],
     "rules": {
       "performance": {
         "useTopLevelRegex": "off"
