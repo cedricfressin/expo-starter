@@ -9,11 +9,6 @@ import { RootProviders } from '~/features/root-providers'
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from 'expo-router'
 
-export const unstable_settings = {
-  // Ensure any route can link back to `/`
-  initialRouteName: 'index'
-}
-
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync()
 
