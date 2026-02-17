@@ -75,6 +75,8 @@
     ],
     "experiments": {
       "reactCompiler": true,
+      "reactServerFunctions": true,
+      "reactServerComponentRoutes": true,
       "tsconfigPaths": true,
       "typedRoutes": true
     },
