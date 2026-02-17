@@ -1,6 +1,7 @@
 import { Redirect, useLocalSearchParams } from 'expo-router'
 import Head from 'expo-router/head'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { Text } from '~/components/ui/text'
 
 export async function generateStaticParams() {
   // Return an array of params to generate static HTML files for.
@@ -23,9 +24,7 @@ export default function Page() {
         </title>
       </Head>
       <View>
-        <Text className="text-2xl font-bold text-foreground" role="heading">
-          Page (slug: "{slug}")
-        </Text>
+        <Text variant="h1">Page (slug: "{slug}")</Text>
       </View>
     </>
   )

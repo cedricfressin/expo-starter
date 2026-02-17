@@ -1,5 +1,6 @@
 import Head from 'expo-router/head'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { Text } from '~/components/ui/text'
 
 export default function LandingPage() {
   return (
@@ -8,9 +9,7 @@ export default function LandingPage() {
         <title>{'{app_name}'}</title>
       </Head>
       <View className="flex-1 p-safe">
-        <Text className="text-2xl font-bold text-foreground" role="heading">
-          Landing Page
-        </Text>
+        <Text variant="h1">Landing Page</Text>
       </View>
     </>
   )
