@@ -57,7 +57,8 @@
         {
           "origin": "https://{app_production_url}",
           "asyncRoutes": "production",
-          "unstable_useServerMiddleware": true
+          "unstable_useServerMiddleware": true,
+          "unstable_useServerRendering": true
         }
       ],
       [
@@ -75,6 +76,8 @@
     ],
     "experiments": {
       "reactCompiler": true,
+      "reactServerFunctions": true,
+      "reactServerComponentRoutes": true,
       "tsconfigPaths": true,
       "typedRoutes": true
     },
