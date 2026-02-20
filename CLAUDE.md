@@ -25,11 +25,7 @@
 ├── config.yaml              # Global settings
 ├── subflows/                # Reusable flow fragments
 ├── public/                  # Marketing pages (mirrors src/app/(public)/)
-│   ├── landing.yaml         # Mobile flow
-│   └── landing-web.yaml     # Web flow
 └── app/                     # App screens (mirrors src/app/(app)/)
-    ├── home.yaml            # Mobile flow
-    └── home-web.yaml        # Web flow
 
 src/                         # Application source code
 ├── app/                     # Expo Router pages
@@ -42,7 +38,7 @@ src/                         # Application source code
 │   ├── hooks/               # Shared React hooks
 │   ├── services/            # API clients, storage, toaster, etc.
 │   └── utils/               # Pure utility functions
-├── components/
+├── components/              # UI components shared across features
 │   ├── ui/                  # React Native Reusables (shadcn-like)
 │   └── custom/              # Project-specific components
 └── tests/
@@ -55,10 +51,13 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 
 ## Code Conventions
 
+- **Universal App**: This codebase targets both mobile native (iOS/Android) and web. Always consider both platforms when writing components.
+- **Semantic HTML on Web**: Use `@expo/html-elements` (`Section`, `Nav`, `Header`, `Footer`, `Main`, `Article`, `Aside`, etc.) instead of `View` for layout containers — this renders semantic HTML on web while remaining compatible on native.
+- **Text & Headings**: Use `~/components/ui/text` (`Text`, `H1`, `H2`, `H3`, `H4`, `Muted`, etc.) for all text and headings — provides proper semantic tags on web and consistent styling across platforms.
 - **Imports**: Use `~/` alias for absolute imports (e.g., `import { cn } from '~/lib/utils/cn'`)
 - **Styling**: Use `cn()` utility from `~/lib/utils/cn` for Tailwind class merging
 - **Platform-specific**: Use `.web.ts` / `.native.ts` suffixes for platform code
-- **Tests**: Collocate in `__tests__/` folders next to source files
+- **React Compiler**: Enabled — trust auto-memoization, NEVER use manual `useMemo`/`useCallback`/`memo`
 
 ### Component Placement
 
@@ -69,8 +68,6 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 ### Testing Patterns
 
 - **Runner**: Jest + React Native Testing Library
-- **Selector priority**: `getByRole` > `getByText` > `getByTestId` (a11y-first)
-- **Location**: `__tests__/` folders next to source files
 - **Render**: Always use `setup()` from `~/tests/setup.ts` instead of bare `render()` — it wraps render with `userEvent.setup()`
 
 ---
