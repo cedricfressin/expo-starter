@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "prepare": "lefthook install",
+    "prepare": "lefthook install && prisma generate",
     "dev": "expo start -c",
     "build": "expo export -p web -s",
     "serve": "expo serve",
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@expo/html-elements": "^0.13.8",
+    "@prisma/adapter-pg": "^7.4.1",
+    "@prisma/client": "^7.4.1",
     "@react-navigation/native": "^7.1.8",
     "@rn-primitives/checkbox": "^1.2.0",
     "@rn-primitives/label": "^1.2.0",
@@ -78,6 +80,7 @@
     "jest-expo": "~55.0.6",
     "knip": "5.84.1",
     "lefthook": "2.1.1",
+    "prisma": "^7.4.1",
     "react-test-renderer": "19.2.0",
     "typescript": "5.9.3",
     "ultracite": "7.2.3"

@@ -63,6 +63,16 @@ Then press:
 | `bun lint`      | Run Ultracite linter with auto-fix |
 | `bun knip`      | Find unused dependencies           |
 
+### Database
+
+| Command                     | Description                                              |
+| --------------------------- | -------------------------------------------------------- |
+| `bun prisma generate`       | Generate Prisma client after schema changes              |
+| `bun prisma migrate dev`    | Create and apply migrations (development)                |
+| `bun prisma migrate deploy` | Apply pending migrations (production)                    |
+| `bun prisma db push`        | Push schema to database without migrations (prototyping) |
+| `bun prisma studio`         | Open Prisma Studio to browse data                        |
+
 ### Testing
 
 | Command                                  | Description                    |

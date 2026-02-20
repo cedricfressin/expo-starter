@@ -83,6 +83,14 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 - `bun lint` - Run Ultracite linter with auto-fix
 - `bun clean` - Clean artifacts/caches
 
+### Database Commands
+
+- `bun prisma generate` - Generate Prisma client after schema changes
+- `bun prisma migrate dev` - Create and apply migrations (development)
+- `bun prisma migrate deploy` - Apply pending migrations (production)
+- `bun prisma db push` - Push schema to database without migrations (prototyping)
+- `bun prisma studio` - Open Prisma Studio to browse data
+
 **NEVER run these commands:**
 
 - NEVER `bun build` - Use `bun run build` instead since we are using Expo to pack the application.
@@ -122,3 +130,4 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 - NEVER create new utils/hooks without checking `~/lib/utils/` and `~/lib/hooks/` first
 - NEVER use `sonner` or `sonner-native` directly → use wrapper from `~/lib/services/toaster`
 - NEVER use raw `useForm` from `@tanstack/react-form` → use `useAppForm` from `~/components/tanstack-form` and exported composed components (`form.AppForm`, `form.AppField`, `field.Label`, `field.Input`, etc.)
+- NEVER import `~/lib/services/prisma` from client-side code (components, hooks, screens) → Prisma is server-only (Node.js). Only import from `+api.ts` routes, server functions, or `+middleware.ts`
