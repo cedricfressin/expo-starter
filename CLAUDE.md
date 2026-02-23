@@ -8,11 +8,11 @@
 
 ### Technology Stack
 
-- **Expo SDK 55** (preview) with React Native 0.84.0 (New Architecture)
+- **Expo SDK 55** with React Native 0.84.0 (New Architecture)
 - **React 19** with React Compiler enabled
 - **Expo Router 6** - File-based routing with typed routes
 - **TanStack Query v5** - Server state management
-- **TanStack Form** - Form state management with composition API (`~/components/tanstack-form`)
+- **TanStack Form** - Form composition API (`~/components/custom/tanstack-form`)
 - **React Native Reusables** - shadcn/ui-style components for React Native
 - **Uniwind** - Universal Tailwind CSS v4 for React Native + Web
 - **TypeScript 5.9** strict mode
@@ -22,10 +22,6 @@
 
 ```
 .maestro/                    # E2E tests (Maestro — mobile + web)
-├── config.yaml              # Global settings
-├── subflows/                # Reusable flow fragments
-├── public/                  # Marketing pages (mirrors src/app/(public)/)
-└── app/                     # App screens (mirrors src/app/(app)/)
 
 src/                         # Application source code
 ├── app/                     # Expo Router pages
@@ -39,10 +35,7 @@ src/                         # Application source code
 │   ├── services/            # API clients, storage, toaster, etc.
 │   └── utils/               # Pure utility functions
 ├── components/              # UI components shared across features
-│   ├── ui/                  # React Native Reusables (shadcn-like)
-│   └── custom/              # Project-specific components
-└── tests/
-    └── setup.ts             # Test helper: setup() wraps render + userEvent
+└── tests/                   # Test helpers
 
 public/                      # Static assets served as-is (robots.txt, favicon, etc.)
 ```
@@ -52,7 +45,7 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 ## Code Conventions
 
 - **Universal App**: This codebase targets both mobile native (iOS/Android) and web. Always consider both platforms when writing components.
-- **Semantic HTML on Web**: Use `@expo/html-elements` (`Section`, `Nav`, `Header`, `Footer`, `Main`, `Article`, `Aside`, etc.) instead of `View` for layout containers — this renders semantic HTML on web while remaining compatible on native.
+- **Semantic HTML on Web (ALWAYS)**: Use `@expo/html-elements` (`Section`, `Nav`, `Header`, `Footer`, `Main`, `Article`, `Aside`, etc.) instead of `View` for layout containers — NEVER use bare `View` where a semantic element applies. Renders proper HTML on web while remaining compatible on native.
 - **Text & Headings**: Use `~/components/ui/text` (`Text`, `H1`, `H2`, `H3`, `H4`, `Muted`, etc.) for all text and headings — provides proper semantic tags on web and consistent styling across platforms.
 - **Imports**: Use `~/` alias for absolute imports (e.g., `import { cn } from '~/lib/utils/cn'`)
 - **Styling**: Use `cn()` utility from `~/lib/utils/cn` for Tailwind class merging
@@ -72,9 +65,7 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 
 ---
 
-## Development Settings
-
-### Core Commands
+## Commands
 
 - `bun dev` - Start development server
 - `bun run build` - Build the web output ready for production
@@ -82,38 +73,27 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 - `bun typecheck` - Run TypeScript validation
 - `bun lint` - Run Ultracite linter with auto-fix
 - `bun clean` - Clean artifacts/caches
-
-**NEVER run these commands:**
-
-- NEVER `bun build` - Use `bun run build` instead since we are using Expo to pack the application.
-
-### Testing Commands
-
 - `bun run test` - Run all tests suites with coverage report
 - `bun run test --findRelatedTests <file>` - Run on changed and related files
-
-### E2E Testing Commands
-
 - `bun e2e` - Run all E2E tests
-- `bun e2e --exclude-tags platform:web` - Run mobile E2E tests (excludes web)
-- `bun e2e --include-tags platform:web` - Run web E2E tests (Chromium)
-
-**NEVER run these commands:**
-
-- NEVER `bun test` - Use `bun run test` instead since we are using Jest as test runner
-- NEVER `bun run test --watch` - Watch mode is not compatible with Claude Code
-- NEVER `maestro studio` - Interactive UI is not compatible with Claude Code
-
-### Development Tools
-
-- `bun x expo-doctor` - Check environment readiness for Expo
+- `bun e2e --exclude-tags platform:web` - Mobile E2E tests only
+- `bun e2e --include-tags platform:web` - Web E2E tests (Chromium)
 - `bun knip` - Find unused dependencies
 - `bun x snyk test` - Security vulnerability scan
+- `bun x expo-doctor` - Check environment readiness
 
 ### Package Management (CRITICAL)
 
 - ALWAYS `bun` or `bun x` (NEVER npm/yarn/pnpm)
+- Expo dependencies: ALWAYS `bun x expo install <package> --fix` to ensure SDK-compatible versions
 - React Native Reusables: `bun x --bun @react-native-reusables/cli@latest add <component>`
+
+### NEVER Run
+
+- NEVER `bun build` → use `bun run build` (Expo bundles the app)
+- NEVER `bun test` → use `bun run test` (Jest runner)
+- NEVER `bun run test --watch` — not compatible with Claude Code
+- NEVER `maestro studio` — not compatible with Claude Code
 
 ---
 
@@ -121,4 +101,6 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 
 - NEVER create new utils/hooks without checking `~/lib/utils/` and `~/lib/hooks/` first
 - NEVER use `sonner` or `sonner-native` directly → use wrapper from `~/lib/services/toaster`
-- NEVER use raw `useForm` from `@tanstack/react-form` → use `useAppForm` from `~/components/tanstack-form` and exported composed components (`form.AppForm`, `form.AppField`, `field.Label`, `field.Input`, etc.)
+- NEVER use raw `useForm` from `@tanstack/react-form` → use `useAppForm` from `~/components/custom/tanstack-form`
+  - **Form-level**: `form.AppForm`, `form.AppField`, `form.SubmitButton`
+  - **Field-level**: `field.Field`, `field.Label`, `field.Description`, `field.Message`, `field.Input`, `field.Textarea`, `field.Checkbox`, `field.RadioGroup`, `field.Toggle`
