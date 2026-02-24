@@ -80,6 +80,7 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 - `bun e2e --include-tags platform:web` - Web E2E tests (Chromium)
 - `bun knip` - Find unused dependencies
 - `bun x snyk test` - Security vulnerability scan
+- `bun x expo-optimize` - Optimize all image assets (lossless compression)
 - `bun x expo-doctor` - Check environment readiness
 
 ### Package Management (CRITICAL)

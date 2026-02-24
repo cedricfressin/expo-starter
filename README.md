@@ -83,6 +83,7 @@ Then press:
 
 | Command             | Description                                                |
 | ------------------- | ---------------------------------------------------------- |
-| `bun clean`         | Clean artifacts and caches (.expo, coverage, node_modules) |
-| `bun x expo-doctor` | Check environment readiness for Expo                       |
-| `bun x snyk test`   | Run security vulnerability scan                            |
+| `bun clean`          | Clean artifacts and caches (.expo, coverage, node_modules) |
+| `bun x expo-optimize` | Optimize all image assets (lossless compression)           |
+| `bun x expo-doctor`  | Check environment readiness for Expo                       |
+| `bun x snyk test`    | Run security vulnerability scan                            |
