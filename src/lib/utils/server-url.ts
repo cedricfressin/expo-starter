@@ -10,7 +10,7 @@ export function getServerUrl() {
 
   // If we are in production, return the production URL.
   if (process.env.NODE_ENV === 'production') {
-    return 'https://{production_url}'
+    return 'https://{app_production_url}'
   }
 
   // If we are in development, return the localhost URL

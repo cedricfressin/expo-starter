@@ -31,7 +31,7 @@ describe('getServerUrl', () => {
     const result = getServerUrl()
 
     // Assert
-    expect(result).toBe('https://{production_url}')
+    expect(result).toBe('https://{app_production_url}')
   })
 
   it('returns localhost URL when in development without window', () => {

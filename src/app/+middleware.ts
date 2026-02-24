@@ -7,7 +7,7 @@ export default async function middleware(request: ImmutableRequest) {
   const { host, pathname } = new URL(request.url)
 
   // If the request is for the app domain or the app path, redirect to the app group
-  if (host.includes('{app_production_url}') || pathname.startsWith('/app')) {
+  if (host.includes('{production_url}') || pathname.startsWith('/app')) {
     return Response.redirect(new URL('/(app)', request.url), 302)
   }
 }

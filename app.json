@@ -12,9 +12,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "{app_bundle_identifier}",
       "associatedDomains": [
-        "applinks:{app_production_url}",
-        "webcredentials:{app_production_url}",
-        "activitycontinuation:{app_production_url}"
+        "applinks:{production_url}",
+        "webcredentials:{production_url}",
+        "activitycontinuation:{production_url}"
       ],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -37,7 +37,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "{app_production_url}"
+              "host": "{production_url}"
             }
           ],
           "category": ["BROWSABLE", "DEFAULT"]
@@ -62,7 +62,7 @@
       [
         "expo-router",
         {
-          "origin": "https://{app_production_url}",
+          "origin": "https://{production_url}",
           "asyncRoutes": "production",
           "unstable_useServerMiddleware": true,
           "unstable_useServerRendering": true
