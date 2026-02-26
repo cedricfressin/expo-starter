@@ -9,7 +9,7 @@ export function RootProviders({ children }: PropsWithChildren) {
   const { theme } = useUniwind()
 
   return (
-    <ThemeProvider value={navTheme[theme]}>
+    <ThemeProvider value={navTheme[theme as keyof typeof navTheme]}>
       <StatusBar animated style="auto" />
       <SafeAreaListener
         onChange={({ insets }) => {
