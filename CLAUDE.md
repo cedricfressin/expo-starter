@@ -8,7 +8,7 @@
 
 ### Technology Stack
 
-- **Expo SDK 55** with React Native 0.84.0 (New Architecture)
+- **Expo SDK 55** with React Native 0.83.2 (New Architecture)
 - **React 19** with React Compiler enabled
 - **Expo Router 6** - File-based routing with typed routes
 - **TanStack Query v5** - Server state management
@@ -34,8 +34,9 @@ src/                         # Application source code
 │   ├── hooks/               # Shared React hooks
 │   ├── services/            # API clients, storage, toaster, etc.
 │   └── utils/               # Pure utility functions
-├── components/              # UI components shared across features
-└── tests/                   # Test helpers
+└── components/              # UI components shared across features
+
+tests/                       # Test helpers
 
 public/                      # Static assets served as-is (robots.txt, favicon, etc.)
 ```
@@ -54,14 +55,40 @@ public/                      # Static assets served as-is (robots.txt, favicon, 
 
 ### Component Placement
 
-- **`src/components/ui/`** - React Native Reusables (shadcn-like primitives, added via CLI)
-- **`src/components/custom/`** - Cross-feature custom components not available in React Native Reusables
-- **`src/features/<name>/`** - Domain-specific UI + logic (components, hooks, types scoped to one feature)
+| Location                 | Purpose                                           |
+| ------------------------ | ------------------------------------------------- |
+| `src/components/ui/`     | React Native Reusables primitives (added via CLI) |
+| `src/components/custom/` | Cross-feature custom components                   |
+| `src/features/<name>/`   | Domain-scoped UI + logic                          |
+
+### Providers & Theme
+
+Two layers in `src/features/`, add new providers to the appropriate level:
+
+| Provider        | Layout              | Scope      | Contains                                                 |
+| --------------- | ------------------- | ---------- | -------------------------------------------------------- |
+| `RootProviders` | `_layout.tsx`       | All routes | Uniwind, ThemeProvider (`navTheme`), StatusBar, SafeArea |
+| `AppProviders`  | `(app)/_layout.tsx` | App only   | QueryClient, PortalHost, Toaster, React Query Devtools   |
+
+Theme: `src/lib/theme.ts` exports `navTheme` (light/dark HSL values synced with Tailwind CSS variables).
+
+### API Routes & Server
+
+Server output is enabled (`"output": "server"` + `reactServerFunctions: true`).
+
+- **File convention**: `src/app/api/<name>+api.ts` (e.g., `health+api.ts` → `/api/health`)
+- **Export named HTTP methods**: `GET`, `POST`, `PUT`, `PATCH`, `DELETE` — each receives a `Request` and must return a `Response` (Web standard API)
+- **Dynamic params**: `src/app/api/users/[id]+api.ts` — access via `request.expirationURL` or parse from `request.url`
+- **Server functions**: Use `'use server'` directive for functions callable from client components
+- **Middleware**: `src/app/+middleware.ts` runs on every request (uses `expo-server` `ImmutableRequest`)
+- **No client code**: API route files are server-only — never import React or client modules
+- **Server-only guard**: Add `import "server-only"` at the top of any server-only utility module (API helpers, DB clients, secrets) to cause a build error if accidentally imported from client code
 
 ### Testing Patterns
 
 - **Runner**: Jest + React Native Testing Library
-- **Render**: Always use `setup()` from `~/tests/setup.ts` instead of bare `render()` — it wraps render with `userEvent.setup()`
+- **Render**: Always use `setup()` from `tests/setup.ts` instead of bare `render()` — it wraps render with `userEvent.setup()`
+- **Native module mocks**: `jest.setup.ts` mocks gesture-handler, reanimated, worklets, keyboard-controller, safe-area-context, and expo-router. When adding a new native module, add its mock entry to `jest.setup.ts`
 
 ---
 

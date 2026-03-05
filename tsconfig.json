@@ -17,8 +17,9 @@
     // Paths aliases
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "~/assets/*": ["./assets/*"]
+      "~/assets/*": ["./assets/*"],
+      "~/tests/*": ["./tests/*"],
+      "~/*": ["./src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
