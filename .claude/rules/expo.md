@@ -1,7 +1,7 @@
 ---
 paths:
-  - '**/*.{ts,tsx}'
-  - 'app.json'
+  - "**/*.{ts,tsx}"
+  - "app.json"
 ---
 
 # Expo / React Native
@@ -19,7 +19,7 @@ paths:
 
 ## Expo 55+
 
-- **NativeTabs**: prefer over `Tabs` for native tab bars, `NativeTabs.Trigger` with `.Icon`/`.Label`/`.Badge`, SF Symbols via `sf` prop
+- **NativeTabs**: prefer over `Tabs` for native tab bars, `NativeTabs.Trigger` with `.Icon`/`.Label`/`.Badge`, SF Symbols via `sf` prop, Material Symbols via `md` prop
 - **Stack.Toolbar** (iOS): in page components (not layouts), bottom default, `.Button`/`.Spacer`/`.Menu`
 - **SplitView** (iPad): root layout only, `SplitView.Column` for sidebar, `.Inspector` for detail
 

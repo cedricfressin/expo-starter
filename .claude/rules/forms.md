@@ -1,9 +1,9 @@
 ---
 paths:
-  - '**/*form*'
-  - '**/*schema*'
-  - '**/*validation*'
-  - 'src/components/custom/tanstack-form*'
+  - "**/*form*"
+  - "**/*schema*"
+  - "**/*validation*"
+  - "src/components/custom/tanstack-form*"
 ---
 
 # Forms & Validation

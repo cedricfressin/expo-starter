@@ -1,9 +1,9 @@
 ---
 paths:
-  - '**/*.test.{ts,tsx}'
-  - 'tests/**'
-  - 'jest*'
-  - '.maestro/**'
+  - "**/*.test.{ts,tsx}"
+  - "tests/**"
+  - "jest*"
+  - ".maestro/**"
 ---
 
 # Testing

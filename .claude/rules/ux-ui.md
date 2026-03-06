@@ -1,6 +1,6 @@
 ---
 paths:
-  - '**/*.tsx'
+  - "**/*.tsx"
 ---
 
 # UX & UI Components

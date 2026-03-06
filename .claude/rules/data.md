@@ -1,6 +1,6 @@
 ---
 paths:
-  - '**/*.{ts,tsx}'
+  - "**/*.{ts,tsx}"
 ---
 
 # Data, Queries & Storage

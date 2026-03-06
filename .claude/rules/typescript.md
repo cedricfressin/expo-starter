@@ -1,6 +1,6 @@
 ---
 paths:
-  - '**/*.{ts,tsx}'
+  - "**/*.{ts,tsx}"
 ---
 
 # TypeScript & Code Style
@@ -36,16 +36,14 @@ paths:
 - **Fail fast** with clear messages, throw `Error` objects, specific error types
 - Handle at boundaries (API routes, Server Actions), no empty catch, wrap internals
 
-## i18n
+## i18n & Formatting
 
-- **`expo-localization`** + **`@lingui`** — `I18nProvider` in `RootProviders`, catalogs in `locales/<locale>.po`
-- **JSX text**: `<Trans>` from `@lingui/react/macro` — wraps visible text, Lingui auto-generates IDs
-- **String props**: `` t`text` `` from `useLingui()` (`@lingui/react/macro`) — for `<title>`, accessibility labels, etc.
-- **With variables**: `<Trans>Hello {name}</Trans>` or `` t`Hello ${name}` `` — JSX expressions / template literals
-- **Outside React**: `i18n._('messageId', values)` from `~/lib/services/i18n`
-- **Workflow**: write messages in code → catalogs are auto-extracted on pre-commit (`bun i18n`)
-- NEVER hardcode user-facing strings — use `<Trans>` or `t` macro
-- NEVER set explicit IDs — let Lingui auto-generate them from message content
+- **Default: English-only** — prepare for i18n without implementing prematurely
+- When needed: **`expo-localization`** + **`i18next`** with `react-i18next`
+- **NEVER hardcode user-facing strings** inline — extract to constants or translation keys
+- Detect locale: `expo-localization` `getLocales()[0]`
+- **RTL**: use logical Tailwind properties (`ps-`/`pe-`, `ms-`/`me-`, `start`/`end`) — NEVER `left`/`right` for layout
+- NEVER concatenate translated strings — use parameterized messages
 
 ## Anti-Patterns (NEVER)
 
