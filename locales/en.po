@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-03-06 14:46+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/app/(public)/[slug].tsx:32
+msgid "{slug} - {appName}"
+msgstr "{slug} - {appName}"
+
+#: src/app/(app)/index.tsx:12
+#: src/app/(public)/index.tsx:17
+msgid "App"
+msgstr "App"
+
+#: src/app/(app)/index.tsx:16
+msgid "App Index"
+msgstr "App Index"
+
+#: src/features/navigation/public-footer.tsx:9
+msgid "Footer"
+msgstr "Footer"
+
+#: src/features/navigation/public-header.tsx:9
+msgid "Header"
+msgstr "Header"
+
+#: src/app/(public)/index.tsx:21
+msgid "Landing Page"
+msgstr "Landing Page"
+
+#: src/app/(public)/[slug].tsx:36
+msgid "Page (slug: \"{slug}\")"
+msgstr "Page (slug: \"{slug}\")"

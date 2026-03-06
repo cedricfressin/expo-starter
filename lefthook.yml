@@ -23,8 +23,13 @@ pre-commit:
       stage_fixed: true
 
     - name: markdown
-      run: bun x prettier --write {staged_files}
-      glob: '**/*.md'
+      run: bun x prettier --write {staged_files} --arrow-parens=avoid --no-semi --single-quote --trailing-comma=none
+      glob: '*.md'
+      stage_fixed: true
+
+    - name: i18n
+      run: bun i18n
+      glob: '*.{ts,tsx,po}'
       stage_fixed: true
 
     - name: test

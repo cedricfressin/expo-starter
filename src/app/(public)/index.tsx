@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro'
 import Head from 'expo-router/head'
 import { View } from 'react-native'
 import { Text } from '~/components/ui/text'
@@ -8,13 +9,17 @@ export const unstable_settings = {
 }
 
 export default function LandingPage() {
+  const { t } = useLingui()
+
   return (
     <>
       <Head>
-        <title>{'{app_name}'}</title>
+        <title>{t`App`}</title>
       </Head>
       <View className="flex-1 p-safe">
-        <Text variant="h1">Landing Page</Text>
+        <Text variant="h1">
+          <Trans>Landing Page</Trans>
+        </Text>
       </View>
     </>
   )

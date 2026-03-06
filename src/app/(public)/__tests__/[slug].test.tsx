@@ -19,7 +19,7 @@ describe('Page [slug]', () => {
 
     // Assert
     expect(
-      screen.getByRole('heading', { name: new RegExp(slug, 'i') })
+      screen.getByRole('heading', { name: `Page (slug: "${slug}")` })
     ).toBeOnTheScreen()
     expect(Redirect).not.toHaveBeenCalled()
   })

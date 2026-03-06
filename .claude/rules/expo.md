@@ -1,7 +1,7 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
-  - "app.json"
+  - '**/*.{ts,tsx}'
+  - 'app.json'
 ---
 
 # Expo / React Native

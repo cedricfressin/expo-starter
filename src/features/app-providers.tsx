@@ -1,23 +1,25 @@
 import { PortalHost } from '@rn-primitives/portal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import { Platform } from 'react-native'
 import { Toaster } from '~/lib/services/toaster'
 
 // Create a query client instance
 const queryClient = new QueryClient()
 
-// React Query Devtools are only available on web in development mode
-const hasReactQueryDevtools =
-  Platform.OS === 'web' && process.env.NODE_ENV === 'development'
-
-// Lazy load the React Query Devtools
-const ReactQueryDevtools = lazy(() =>
-  import('@tanstack/react-query-devtools').then(({ ReactQueryDevtools }) => ({
-    default: ReactQueryDevtools
-  }))
-)
+// React Query Devtools: __DEV__ is statically replaced by Metro,
+// ensuring the dynamic import is completely eliminated in production builds
+const ReactQueryDevtools =
+  __DEV__ && Platform.OS === 'web'
+    ? lazy(() =>
+        import('@tanstack/react-query-devtools').then(
+          ({ ReactQueryDevtools }) => ({
+            default: ReactQueryDevtools
+          })
+        )
+      )
+    : null
 
 export function AppProviders({ children }: PropsWithChildren) {
   return (
@@ -25,7 +27,7 @@ export function AppProviders({ children }: PropsWithChildren) {
       {children}
       <PortalHost />
       <Toaster position="top-center" />
-      {hasReactQueryDevtools && (
+      {ReactQueryDevtools && (
         <Suspense>
           <ReactQueryDevtools />
         </Suspense>

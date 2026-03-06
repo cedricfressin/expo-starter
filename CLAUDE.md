@@ -16,6 +16,7 @@
 - **React Native Reusables** - shadcn/ui-style components for React Native
 - **Uniwind** - Universal Tailwind CSS v4 for React Native + Web
 - **TypeScript 5.9** strict mode
+- **Lingui** - i18n with compile-time macros and ICU MessageFormat
 - **Maestro** - E2E testing for mobile + web
 
 ### Project Structure
@@ -24,6 +25,8 @@
 .claude/                     # Claude Code configuration (rules and settings)
 
 .maestro/                    # E2E tests (Maestro — mobile + web)
+
+locales/                     # i18n catalogs (per locale, managed by Lingui CLI)
 
 src/                         # Application source code
 ├── app/                     # Expo Router pages
@@ -71,6 +74,7 @@ Detailed conventions are auto-loaded from `.claude/rules/` based on file paths b
 - `bun e2e` - Run all E2E tests
 - `bun e2e --exclude-tags platform:web` - Mobile E2E tests only
 - `bun e2e --include-tags platform:web` - Web E2E tests (Chromium)
+- `bun i18n` - Extract translation messages from source code (runs automatically on pre-commit hook)
 - `bun knip` - Find unused dependencies
 - `bun x snyk test` - Security vulnerability scan
 - `bun x expo-optimize` - Optimize all image assets (lossless compression)

@@ -3,6 +3,7 @@
   "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"],
   "moduleNameMapper": {
     "^~/assets/(.*)$": "<rootDir>/src/assets/$1",
+    "^~/locales/(.*)$": "<rootDir>/locales/$1",
     "^~/tests/(.*)$": "<rootDir>/tests/$1",
     "^~/(.*)$": "<rootDir>/src/$1"
   },
@@ -18,6 +19,6 @@
     "!**/.expo/**"
   ],
   "transformIgnorePatterns": [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|@rn-primitives/.*|class-variance-authority)"
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|@rn-primitives/.*|class-variance-authority|@lingui/.*|uniwind)"
   ]
 }
