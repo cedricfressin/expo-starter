@@ -1,10 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
-
   // React Native platform extensions (.web.ts, .native.ts, .ios.ts, .android.ts)
   // are invisible to knip — treat them as entry points
   "entry": ["app/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}", "features/**/*.{ts,tsx}"],
-
   // Expo bundles these — they resolve at build time, not from node_modules
   "ignoreDependencies": [
     // Peer dependency of ultracite
@@ -17,15 +15,24 @@
     "buffer",
     // Expo dev tools (CLI only)
     "expo-atlas",
+    "expo-mcp",
     // Runtime deps resolved by Expo/uniwind (not directly imported)
     "class-variance-authority",
     "expo-splash-screen",
-    "tailwindcss-animate"
+    "tailwindcss-animate",
+    // @rn-primitives are used by components/ui/*
+    "@rn-primitives/*",
+    // Lingui macro (Babel transform, not a runtime import)
+    "@lingui/macro"
   ],
   "ignoreBinaries": ["maestro"],
   "ignore": [
     // Ignore coverage and generated files
     "coverage/**",
-    "dist/**"
-  ]
+    "dist/**",
+    // Config files loaded by their respective tools (not imported in source)
+    "lingui.config.ts",
+    "metro.config.js"
+  ],
+  "ignoreExportsUsedInFile": true
 }

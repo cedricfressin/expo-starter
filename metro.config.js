@@ -5,6 +5,7 @@ const { withUniwindConfig } = require('uniwind/metro')
 const config = getDefaultConfig(__dirname)
 
 config.resolver.unstable_enablePackageExports = true
+config.resolver.sourceExts.push('po')
 
 config.transformer.minifierConfig = {
   compress: {
@@ -19,6 +20,13 @@ config.transformer.minifierConfig = {
     toplevel: true
   }
 }
+
+// @lingui/metro-transformer offers an alternative to the lingui compile command:
+// it enables Metro to compile .po files on the fly.
+config.transformer.babelTransformerPath = require.resolve(
+  '@lingui/metro-transformer/expo'
+)
+config.resolver.sourceExts.push('po', 'pot')
 
 module.exports = withUniwindConfig(config, {
   // relative path to your global.css file (from previous step)

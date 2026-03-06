@@ -17,6 +17,7 @@
         "activitycontinuation:{production_url}"
       ],
       "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false
       }
     },
@@ -59,6 +60,15 @@
         }
       ],
       "expo-font",
+      [
+        "expo-localization",
+        {
+          "supportedLocales": {
+            "ios": ["en"],
+            "android": ["en"]
+          }
+        }
+      ],
       "expo-quick-actions",
       [
         "expo-router",

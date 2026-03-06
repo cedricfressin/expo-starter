@@ -4,6 +4,7 @@ import {
   userEvent
 } from '@testing-library/react-native'
 import type { ReactElement } from 'react'
+import { RootProviders } from '~/features/root-providers'
 
 export function setup(
   jsx: ReactElement,
@@ -11,6 +12,6 @@ export function setup(
 ) {
   return {
     user: userEvent.setup(),
-    ...render(jsx, options)
+    ...render(jsx, { wrapper: RootProviders, ...options })
   }
 }

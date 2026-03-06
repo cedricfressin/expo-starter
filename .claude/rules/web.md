@@ -1,7 +1,7 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
-  - "!**/*.{native,ios,android}.{ts,tsx}"
+  - '**/*.{ts,tsx}'
+  - '!**/*.{native,ios,android}.{ts,tsx}'
 ---
 
 # Web Conventions
