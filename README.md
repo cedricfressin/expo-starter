@@ -88,3 +88,19 @@ Then press:
 | `bun x expo-optimize` | Optimize all image assets (lossless compression)                                      |
 | `bun x expo-doctor`   | Check environment readiness for Expo                                                  |
 | `bun x snyk test`     | Run security vulnerability scan                                                       |
+
+## Git Flow & CI/CD
+
+Branches: `main` (stable) ← `type/desc` feature branches via PR. Tags `v*` for production releases.
+Commits: [Conventional Commits](https://www.conventionalcommits.org/) — `type(scope): message`
+
+| Trigger        | Workflow                | Action                                                |
+| -------------- | ----------------------- | ----------------------------------------------------- |
+| Pull Request   | `pr-preview.yml`        | OTA preview + GitHub comment                          |
+| Push to `main` | `deploy.yml`            | Fingerprint → OTA update or build preview             |
+| Tag `v*`       | `deploy.yml`            | Fingerprint → OTA update or build production + submit |
+| Manual         | `development-build.yml` | Build dev client (Android/iOS)                        |
+
+All workflows notify via Slack. The CI uses `@expo/fingerprint` to skip native builds when only JS/assets changed (OTA in seconds vs full build in ~20min).
+
+_It requires to add `SLACK_WEBHOOK_URL` and `EAS_USE_CACHE=1` secrets on [expo.dev](https://expo.dev)_

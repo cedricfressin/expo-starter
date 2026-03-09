@@ -1,0 +1,29 @@
+name: PR Preview
+
+on:
+  pull_request:
+    branches: ['main']
+
+concurrency:
+  group: ${{ workflow.filename }}-${{ github.ref }}
+  cancel_in_progress: true
+
+jobs:
+  publish_preview:
+    name: Publish Preview Update
+    type: update
+    params:
+      branch: ${{ github.ref_name }}
+
+  github_comment:
+    name: Comment on PR
+    needs: [publish_preview]
+    type: github-comment
+
+  notify:
+    name: Slack Notification
+    after: [github_comment]
+    type: slack
+    params:
+      webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      message: "PR preview ready for ${{ github.ref_name }}"

@@ -1,0 +1,33 @@
+name: Development Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        type: string
+        default: all
+
+jobs:
+  build_android:
+    name: Build Android
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
+    type: build
+    params:
+      platform: android
+      profile: development
+
+  build_ios:
+    name: Build iOS
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
+    type: build
+    params:
+      platform: ios
+      profile: development
+
+  notify:
+    name: Slack Notification
+    after: [build_android, build_ios]
+    type: slack
+    params:
+      webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      message: "Development build completed (${{ inputs.platform }})"

@@ -80,6 +80,14 @@ Detailed conventions are auto-loaded from `.claude/rules/` based on file paths b
 - `bun x expo-optimize` - Optimize all image assets (lossless compression)
 - `bun x expo-doctor` - Check environment readiness
 
+### CI/CD (EAS Workflows)
+
+Workflows in `.eas/workflows/` — uses `@expo/fingerprint` to OTA when possible, native build otherwise.
+
+- **Fingerprint** = hash of native dependencies. Same hash → OTA update (seconds). Different hash → full native build (~20min).
+- Profiles: `development` (dev client), `preview` (internal), `production` (stores)
+- NEVER edit workflow files without checking [EAS Workflows docs](https://docs.expo.dev/eas/workflows/syntax/) first
+
 ### Package Management (CRITICAL)
 
 - ALWAYS `bun` or `bun x` (NEVER npm/yarn/pnpm)
