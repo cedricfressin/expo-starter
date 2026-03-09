@@ -1,7 +1,7 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
-  - "app.json"
+  - '**/*.{ts,tsx}'
+  - 'app.json'
 ---
 
 # Expo / React Native
@@ -22,6 +22,8 @@ paths:
 - **NativeTabs**: prefer over `Tabs` for native tab bars, `NativeTabs.Trigger` with `.Icon`/`.Label`/`.Badge`, SF Symbols via `sf` prop, Material Symbols via `md` prop
 - **Stack.Toolbar** (iOS): in page components (not layouts), bottom default, `.Button`/`.Spacer`/`.Menu`
 - **SplitView** (iPad): root layout only, `SplitView.Column` for sidebar, `.Inspector` for detail
+- **Link Preview** (iOS only): `Link.Trigger` wraps content, `Link.Preview` for peek popup (custom JSX children override default snapshot), `useIsPreview()` to detect preview context
+- **Link Context Menu** (iOS only): `Link.Menu` > `Link.MenuAction` (`title`, `icon` SF Symbol, `onPress`, `destructive`), nestable via `<Link.Menu title icon>`
 
 ## Lists
 
