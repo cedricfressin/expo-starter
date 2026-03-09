@@ -1,9 +1,9 @@
 ---
 paths:
-  - "**/*.test.{ts,tsx}"
-  - "tests/**"
-  - "jest*"
-  - ".maestro/**"
+  - '**/*.test.{ts,tsx}'
+  - 'tests/**'
+  - 'jest*'
+  - '.maestro/**'
 ---
 
 # Testing
@@ -38,6 +38,10 @@ paths:
 - Files: `.maestro/<feature>.web.yaml`, tags: `platform:web`
 - Selectors: **`css:`** prefix for CSS selectors
 - Run: `bun e2e --include-tags platform:web`
+
+## Fixtures
+
+- Reusable test data (mock responses, payloads, stubs) in **`tests/fixtures/`** — NEVER inline large data objects in tests
 
 ## Anti-Patterns (NEVER)
 

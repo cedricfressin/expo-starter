@@ -1,6 +1,6 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
+  - '**/*.{ts,tsx}'
 ---
 
 # Architecture & Services
@@ -59,3 +59,7 @@ paths:
 - NEVER expose tokens in URLs, logs, or error messages
 - NEVER hardcode auth secrets in client code — use env vars + server-side only
 - Invalidate all sessions on password change, rate-limit login attempts per IP
+
+## Housekeeping
+
+- Delete `.gitkeep` when its directory is no longer empty
