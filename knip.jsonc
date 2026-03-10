@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
   // React Native platform extensions (.web.ts, .native.ts, .ios.ts, .android.ts)
   // are invisible to knip — treat them as entry points
-  "entry": ["app/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}", "features/**/*.{ts,tsx}"],
+  "entry": ["src/**/*.{ts,tsx}"],
   // Expo bundles these — they resolve at build time, not from node_modules
   "ignoreDependencies": [
     // Peer dependency of ultracite
@@ -11,8 +11,6 @@
     "@expo/metro-config",
     "babel-preset-expo",
     "metro-minify-terser",
-    // Buffer is used by SVG rendering
-    "buffer",
     // Expo dev tools (CLI only)
     "expo-atlas",
     "expo-mcp",
@@ -23,7 +21,7 @@
     // @rn-primitives are used by components/ui/*
     "@rn-primitives/*",
     // Lingui macro (Babel transform, not a runtime import)
-    "@lingui/macro"
+    "@lingui/*"
   ],
   "ignoreBinaries": ["maestro"],
   "ignore": [
