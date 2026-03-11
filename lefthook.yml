@@ -7,6 +7,10 @@ assert_lefthook_installed: true
 
 pre-push:
   jobs:
+    - name: build
+      run: bun run build
+      glob: '*.{js,jsx,ts,tsx,json,jsonc,css}'
+
     - name: audit
       run: bun audit --audit-level=moderate
 
