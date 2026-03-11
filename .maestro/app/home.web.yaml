@@ -7,9 +7,9 @@ url: ${BASE_URL}/app
 tags:
   - smoke
   - feature:app
-  - platform:web
+  - web
 ---
 - launchApp
 
 # App home content
-- assertVisible: "App"
+- assertVisible: 'App'

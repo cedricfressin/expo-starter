@@ -7,16 +7,16 @@ appId: ${APP_ID}
 tags:
   - smoke
   - feature:public
-  - platform:mobile
+  - mobile
 ---
 - launchApp:
     clearState: true
 
 # Header is visible
-- assertVisible: "Header"
+- assertVisible: 'Header'
 
 # Landing page content
-- assertVisible: "Landing Page"
+- assertVisible: 'Landing Page'
 
 # Footer is visible
-- assertVisible: "Footer"
+- assertVisible: 'Footer'

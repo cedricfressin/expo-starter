@@ -7,7 +7,7 @@ appId: ${APP_ID}
 tags:
   - smoke
   - feature:app
-  - platform:mobile
+  - mobile
 ---
 - launchApp:
     clearState: true
@@ -16,4 +16,4 @@ tags:
 - openLink: ${APP_ID}://app
 
 # App home content
-- assertVisible: "App"
+- assertVisible: 'App'

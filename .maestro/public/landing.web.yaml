@@ -7,15 +7,15 @@ url: ${BASE_URL}
 tags:
   - smoke
   - feature:public
-  - platform:web
+  - web
 ---
 - launchApp
 
 # Header is visible
-- assertVisible: "Header"
+- assertVisible: 'Header'
 
 # Landing page content
-- assertVisible: "Landing Page"
+- assertVisible: 'Landing Page'
 
 # Footer is visible
-- assertVisible: "Footer"
+- assertVisible: 'Footer'
