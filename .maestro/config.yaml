@@ -1,10 +1,14 @@
 # Maestro E2E Configuration
 # https://docs.maestro.dev
 
+env:
+  APP_ID: '{app_slug}'
+  BASE_URL: 'http://localhost:8081'
+
 # Flow discovery
 flows:
-  - "public/*"
-  - "app/*"
+  - 'public/*'
+  - 'app/*'
 
 # Flow execution settings
 executionOrder:
