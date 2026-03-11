@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
-import { BackHandler, Platform } from 'react-native'
+import { BackHandler } from 'react-native'
 import { useBackHandler } from '~/lib/hooks/use-back-handler'
 
 const mockRemove = jest.fn()

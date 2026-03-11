@@ -2,7 +2,7 @@
 
 import { ScrollViewStyleReset } from 'expo-router/html'
 import type { PropsWithChildren } from 'react'
-import { i18n, locale } from '~/lib/services/i18n'
+import { locale } from '~/lib/services/i18n'
 
 // This file is web-only and used to configure the root HTML for every
 // web page during static rendering.
@@ -10,7 +10,7 @@ import { i18n, locale } from '~/lib/services/i18n'
 // do not have access to the DOM or browser APIs.
 export default function Root({ children }: PropsWithChildren) {
   return (
-    <html className="h-full" lang={i18n.locale} suppressHydrationWarning>
+    <html className="h-full" lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />

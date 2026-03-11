@@ -3,6 +3,7 @@ import { Stack } from 'expo-router'
 import { Platform } from 'react-native'
 import '~/global.css'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
 import { RootProviders } from '~/features/root-providers'
 
@@ -32,6 +33,7 @@ export default function RootLayout() {
 
   return (
     <RootProviders>
+      <StatusBar animated style="auto" />
       <Stack screenOptions={{ headerShown: false }} />
     </RootProviders>
   )

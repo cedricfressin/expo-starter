@@ -6,7 +6,14 @@ import { Platform } from 'react-native'
 import { Toaster } from '~/lib/services/toaster'
 
 // Create a query client instance
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000,
+      retry: 1
+    }
+  }
+})
 
 // React Query Devtools: __DEV__ is statically replaced by Metro,
 // ensuring the dynamic import is completely eliminated in production builds

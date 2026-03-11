@@ -1,11 +1,11 @@
 import { Footer } from '@expo/html-elements'
 import { Trans } from '@lingui/react/macro'
-import { Text } from 'react-native'
+import { Text } from '~/components/ui/text'
 
 export function PublicFooter() {
   return (
     <Footer>
-      <Text role="heading">
+      <Text>
         <Trans>Footer</Trans>
       </Text>
     </Footer>

@@ -9,6 +9,10 @@ import { BackHandler, Platform } from 'react-native'
  */
 export function useBackHandler(handler: () => boolean) {
   useEffect(() => {
+    if (Platform.OS !== 'android') {
+      return
+    }
+
     const subscription = BackHandler.addEventListener(
       'hardwareBackPress',
       handler

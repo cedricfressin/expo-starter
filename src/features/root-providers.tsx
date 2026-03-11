@@ -1,6 +1,5 @@
 import { I18nProvider } from '@lingui/react'
 import { ThemeProvider } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
 import type { PropsWithChildren } from 'react'
 import { SafeAreaListener } from 'react-native-safe-area-context'
 import { Uniwind, useUniwind } from 'uniwind'
@@ -13,7 +12,6 @@ export function RootProviders({ children }: PropsWithChildren) {
   return (
     <ThemeProvider value={navTheme[theme as keyof typeof navTheme]}>
       <I18nProvider i18n={i18n}>
-        <StatusBar animated style="auto" />
         <SafeAreaListener
           onChange={({ insets }) => {
             Uniwind.updateInsets(insets)

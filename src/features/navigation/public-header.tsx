@@ -1,11 +1,11 @@
 import { Header, Nav } from '@expo/html-elements'
 import { Trans } from '@lingui/react/macro'
-import { Text } from 'react-native'
+import { Text } from '~/components/ui/text'
 
 export function PublicHeader() {
   return (
     <Header>
-      <Text role="heading">
+      <Text variant="h1">
         <Trans>Header</Trans>
       </Text>
       <Nav></Nav>

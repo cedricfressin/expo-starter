@@ -11,6 +11,7 @@
   "collectCoverageFrom": [
     "src/{app,features,lib}/**/*.{ts,tsx}",
     "!src/**/{_layout,+html,+middleware,+not-found}.{ts,tsx}",
+    "!src/**/*-providers.tsx",
     "!src/**/lib/services/*.ts",
     "!**/coverage/**",
     "!**/node_modules/**",
