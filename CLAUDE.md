@@ -23,10 +23,12 @@
 
 ```
 .claude/                     # Claude Code configuration (rules and settings)
-
+.eas/                        # EAS CI/CD workflows
 .maestro/                    # E2E tests (Maestro — mobile + web)
 
+assets/                      # Static assets (images, icons, etc.)
 locales/                     # i18n catalogs (per locale, managed by Lingui CLI)
+public/                      # Static assets served as-is (robots.txt, favicon, etc.)
 
 src/                         # Application source code
 ├── app/                     # Expo Router pages
@@ -42,8 +44,6 @@ src/                         # Application source code
 └── components/              # UI components shared across features
 
 tests/                       # Test helpers
-
-public/                      # Static assets served as-is (robots.txt, favicon, etc.)
 ```
 
 ---
@@ -86,7 +86,6 @@ Workflows in `.eas/workflows/` — uses `@expo/fingerprint` to OTA when possible
 
 - **Fingerprint** = hash of native dependencies. Same hash → OTA update (seconds). Different hash → full native build (~20min).
 - Profiles: `development` (dev client), `preview` (internal), `production` (stores)
-- NEVER edit workflow files without checking [EAS Workflows docs](https://docs.expo.dev/eas/workflows/syntax/) first
 
 ### Package Management (CRITICAL)
 
