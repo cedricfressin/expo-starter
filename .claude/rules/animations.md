@@ -1,51 +1,55 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
+  - '**/*.tsx'
 ---
 
-# Animations
+# Animation Rules
 
-## Library Choice
+## Library
 
-- **`react-native-reanimated`** for all animations — runs on UI thread, 60fps
-- **NEVER** use RN `Animated` API — deprecated in favor of Reanimated
-- **`react-native-gesture-handler`** for gesture-driven animations (swipe, drag, pinch)
+- **`react-native-reanimated`** for ALL animations — UI thread, 60fps
+- **`react-native-gesture-handler`** for gesture-driven animations
 
-## Reanimated Patterns
+## Core Patterns
 
-- **`useAnimatedStyle`** for dynamic style animations driven by shared values
-- **`withTiming()`** (default: 300ms) for state transitions (opacity, color, size)
-- **`withSpring()`** for natural, physics-based motion (drag release, bounce)
-- **`withSequence()`** / **`withDelay()`** for choreographed multi-step animations
-- **Shared values**: `useSharedValue()` — NEVER animate React state with `useState`
+- `useSharedValue()` for all animated values — NEVER animate `useState`
+- `useAnimatedStyle()` for dynamic styles driven by shared values
+- `withTiming()` (default 300ms) for state transitions — `withSpring()` for physics-based motion
+- `withSequence()` / `withDelay()` for choreography — `withRepeat()` for loops
+- Worklets: keep pure (no JS API calls), use `runOnJS()` to bridge to JS thread
 
-## Expo Router Transitions
+## Layout Animations
 
-- **Shared transitions**: `sharedTransitionTag` prop on elements across screens
-- **Custom transitions**: `animation` in `screenOptions` for Stack/Modal transitions
-- Prefer platform-native transitions — only customize when UX requires it
+- `entering`/`exiting` props: `FadeIn`, `FadeOut`, `SlideInRight`, `ZoomIn`, etc.
+- `Layout` prop for automatic position/size transition animations
+- Customize with `.duration()`, `.delay()`, `.springify()`
 
-## Guidelines
+## Gestures
 
-- **Duration**: 100-300ms for micro-interactions, 300-500ms for page transitions
-- **Easing**: `Easing.out(Easing.cubic)` for enter, `Easing.in(Easing.cubic)` for exit
-- **Reduced motion**: respect `useReducedMotion()` — skip or simplify animations
-- **Layout animations**: `LayoutAnimation` for simple list reorders, Reanimated `Layout` for complex
+- `Gesture.Tap()`, `Gesture.Pan()`, `Gesture.Pinch()`, `Gesture.LongPress()`
+- Compose: `Gesture.Simultaneous()`, `Gesture.Exclusive()`, `Gesture.Race()`
+- Always pair with `useAnimatedStyle` via `GestureDetector`
 
-## Common Patterns
+## Timing Guidelines
 
-| Pattern         | Implementation                              |
-| --------------- | ------------------------------------------- |
-| Fade in/out     | `withTiming({ opacity })`                   |
-| Scale press     | `withSpring({ transform: [{ scale }] })`    |
-| Slide in        | `withTiming({ translateX })` + `Easing.out` |
-| Skeleton pulse  | `withRepeat(withTiming(), -1, true)`        |
-| Swipe to delete | `GestureDetector` + `useAnimatedStyle`      |
+| Category          | Duration   | Use Case                          |
+| ----------------- | ---------- | --------------------------------- |
+| Micro-interaction | 100–300ms  | Button press, toggle, icon change |
+| State transition  | 200–400ms  | Loading → success, tab switch     |
+| Page transition   | 300–500ms  | Screen push/pop, modal open       |
+| Decorative loop   | 800–1500ms | Skeleton pulse, breathing glow    |
 
-## Anti-Patterns (NEVER)
+## Reduced Motion
 
-- NEVER use RN `Animated` — use `react-native-reanimated`
-- NEVER animate `useState` values — use `useSharedValue`
-- NEVER skip `useReducedMotion()` — respect accessibility preferences
-- NEVER exceed 500ms for micro-interactions — keep UI responsive
-- NEVER animate layout properties (width/height) when `transform` (scale/translate) works
+- **ALWAYS** check `useReducedMotion()` from Reanimated
+- Reduced motion enabled → `duration: 0` or skip decorative animations
+- Keep functional animations (layout shifts) but simplify
+- Never flash > 3x/sec
+
+## NEVER
+
+- **NEVER** animate `useState` — use `useSharedValue`
+- **NEVER** skip `useReducedMotion()` — accessibility is mandatory
+- **NEVER** exceed 500ms for micro-interactions
+- **NEVER** animate `width`/`height` when `transform` (scale/translate) works
+- **NEVER** use `setTimeout`/`setInterval` for animation timing

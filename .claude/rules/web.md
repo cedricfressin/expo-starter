@@ -1,54 +1,62 @@
 ---
 paths:
-  - "**/*.{ts,tsx}"
-  - "!**/*.{native,ios,android}.{ts,tsx}"
+  - '**/*.web.ts'
+  - '**/*.web.tsx'
+  - '**/+html.tsx'
+  - '**/*.tsx'
+  - '**/*.ts'
 ---
 
-# Web Conventions
+# Web Layer Rules
 
-## Universal Semantic Elements
+## Semantic HTML
 
-All UI uses RN primitives via `react-native-web`. Use **`@expo/html-elements`** for semantic structure (proper HTML on web, compatible on native).
+- **ALWAYS** use `@expo/html-elements` for structural markup: `H1`–`H6`, `P`, `Header`, `Nav`, `Main`, `Footer`, `Section`, `Article`, `Aside`, `UL`, `LI`, `A` (external links), `Strong`, `EM`, `Table`, `HR`, `Code`, `Pre`, `BlockQuote`
+- **NEVER** use raw `<div>`, `<span>`, `<p>`, `<h1>` etc. in `.tsx` files — they don't render on native
+- **NEVER** use `<Text>` for headings — use `<H1>`–`<H6>` for proper heading hierarchy on web
+- In-app navigation → `<Link>` from Expo Router | External links → `<A>` from `@expo/html-elements`
 
-- **Layout**: `Header`, `Footer`, `Nav`, `Main`, `Section`, `Article`, `Aside` — NEVER bare `View` where semantic applies
-- **Text**: `~/components/ui/text` (H1-H4, Text, P, Muted, Small) — **Links**: `<Link>` from `expo-router` — **Lists**: `UL`, `LI`
-- **Buttons**: `<Pressable>` / project `Button` — **Forms**: `nativeID` + `aria-labelledby` pattern
-- NEVER raw HTML (`<div>`, `<span>`, `<button>`, `<a>`, `<ul>`) — breaks native compatibility
+## Platform Splitting
 
-## `'use dom'` Directive
+- Web-only code (browser APIs, `navigator.*`, `window.*`, `document.*`) → `.web.ts` / `.web.tsx` files
+- **NEVER** import browser globals directly in shared `.ts`/`.tsx` files — Metro will bundle them on native and crash
+- Use `Platform.select()` or `Platform.OS === 'web'` only for trivial differences (a className, a prop value)
+- For anything more than a one-liner → split into `.web.ts` + `.ts` (or `.native.ts`) files
 
-- Runs React web code in a WebView on native, as-is on web — **transitional only** (migration, web-only libs)
-- Top of file, serializable props only (no functions/refs) — replace with native equivalents when available
+## Uniwind — Web Variants
 
-## Web-Specific Styling
+- **ALWAYS** prefix web-only CSS properties with `web:`: `web:cursor-pointer`, `web:pointer-events-none`, `web:select-none`, `web:select-text`
+- **ALWAYS** prefix `hover:` with `web:` → `web:hover:bg-muted/80` — hover has no native equivalent
+- **ALWAYS** pair `web:hover:` with `active:` for universal feedback → `web:hover:bg-muted/80 active:bg-muted/70`
+- `web:focus-visible:` for keyboard focus rings — `web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:outline-none`
+- Container queries (`@container`, `@md:`) → web only, not supported on native
 
-- `Platform.select()` in `cn()` for web-only: **hover**, **focus-visible**, **cursor**, transitions
-- `select-text` class for copyable content, **`focus-visible`** for keyboard indicators
-- NEVER remove focus outline without a visible replacement
+## Responsive Layout
 
-## Routing Architecture
+- Mobile-first: unprefixed = all screens, `sm:` / `md:` / `lg:` / `xl:` / `2xl:` for larger
+- Web max-width containers → `web:max-w-5xl web:mx-auto`
+- Safe area → `pt-safe pb-safe px-safe`, `mt-safe-or-4`, `h-screen-safe` (Uniwind built-in)
 
-- **`(app)`** — native + web application (authenticated)
-- **`(public)`** — marketing website (public, SEO-optimized)
-- **Redirects** — Root index: `Platform.OS === 'web'` → `/(public)`, native → `/(app)`
-- **`+middleware.ts`**: server-side routing between app/public in production
-- **`+html.tsx`** — web-only root HTML (DOCTYPE, head, meta, fonts, favicon)
-- **`Head`** from `expo-router/head` for per-page SEO (title, og tags, canonical)
-- **Static rendering** — `unstable_settings`: `anchor: 'index'`, **`render: 'static'`** for SSG (landing, docs, blog)
+## Web-Only APIs
 
-## Responsive Design
+- **NEVER** use `localStorage`, `window.location`, `navigator.*`, `document.*` in shared code
+- Browser APIs → `.web.ts` split with cross-platform alternative in `.ts`
+- See reference for full API alternatives table
 
-- **Mobile-first**: design for mobile, add breakpoints
-- Breakpoints: **`sm:`** 768px, **`md:`** 1024px, **`lg:`** 1280px
+## SEO
 
-## Web E2E (Maestro)
+- Use `<Head>` from `expo-router/head` to inject `<title>`, `<meta>` tags per route
+- `app/+html.tsx` for root HTML shell customization (server-side only)
 
-- Files: `.maestro/<feature>.web.yaml`, tags: `platform:web`
-- Selectors: **`css:`** prefix, fallback to accessibilityLabel
-- Run: `bun e2e --include-tags platform:web`
+## Progressive Enhancement
 
-## Anti-Patterns (NEVER)
+1. Start with the universal component (works on all platforms)
+2. Enhance for web with `web:` prefix classes or `.web.tsx` overrides
+3. **NEVER** break native to add a web feature
 
-- NEVER use raw HTML elements (`<div>`, `<button>`, `<a>`, `<ul>`) — use RN primitives + `@expo/html-elements`
-- NEVER use `'use dom'` for new features — only for web code migration/transition
-- NEVER pass non-serializable props (functions, refs) to `'use dom'` components
+## NEVER
+
+- **NEVER** use `hover:` without `web:` prefix — it silently no-ops on native and misleads
+- **NEVER** use `cursor-pointer`, `pointer-events-*`, `select-none` without `web:` prefix
+- **NEVER** use `StyleSheet.create` in server components (RSC)
+- **NEVER** mix static and server rendering in the same project

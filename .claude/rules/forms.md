@@ -1,37 +1,50 @@
 ---
 paths:
-  - "**/*form*"
-  - "**/*schema*"
-  - "**/*validation*"
-  - "src/components/custom/tanstack-form*"
+  - '**/*.tsx'
+  - '**/schemas/**'
 ---
 
-# Forms & Validation
+# Forms & Validation Rules
 
-## General
+## TanStack Form
 
-- **TanStack Form + Zod** for complex forms, `useActionState` + Server Actions for simple
-- Validate with Zod on **client (UX) AND server (security)** via `schema.safeParse()`
-- `z.infer<typeof schema>` for types, handle all states (loading, success, error)
-- Keep submit button **always enabled**, preserve values on error
+- **ALWAYS** `useAppForm` from `~/components/custom/tanstack-form` — NEVER raw `useForm`
+- Field components: `field.Field`, `field.Label`, `field.Input`, `field.Message`, `field.Checkbox`, `field.RadioGroup`, `field.Toggle`
+- Form components: `form.AppForm` (context), `form.AppField` (field wrapper), `form.SubmitButton`
+- `form.Subscribe` for reactive state (`isSubmitting`, `canSubmit`, `isDirty`, `isValid`)
 
-## Accessibility
+## Zod Schemas
 
-- Web: `<label htmlFor>` + `<input id>`. RN: `nativeID` + `aria-labelledby`
-- Errors with `role="alert"` + `aria-describedby`, `aria-required="true"` for required
-- Proper `inputMode`/`autoComplete` (web) or `keyboardType`/`textContentType` (RN)
+- **Single source of truth** in `~/schemas/` — shared between client (`validators.onChange`) and server (`safeParse`)
+- Zod implements **Standard Schema** — pass directly to TanStack Form validators, no adapter needed
+- Derive types: `z.infer<typeof schema>` — NEVER duplicate schema types manually
+- Compose: `.extend()`, `.pick()`, `.omit()`, `.partial()` for variants
 
-## Validation
+## Validation Strategy
 
-- NEVER skip server-side validation — validate on client (UX) AND server (security)
-- NEVER use blocklists — use allowlists, sanitize (SQL/XSS), fail early with field-specific messages
+- **Sync validation** → Zod schema in `useAppForm({ validators: { onChange: schema } })`
+- **Async validation** (uniqueness checks) → field-level `validators.onChangeAsync` with `onChangeAsyncDebounceMs`
+- **Dependent fields** → `onChangeListenTo` to re-validate when another field changes
+- **Server errors** → `validators.onSubmitAsync` returning `{ form, fields }` error shape
 
-## Project Form Composition API
+## Default Values & Reset
 
-- NEVER raw `useForm` → always **`useAppForm`** from `~/components/custom/tanstack-form`
-- **Form-level**: `form.AppForm` (context), `form.AppField` (field wrapper), `form.SubmitButton`
-- **Field-level** (render prop): `field.Field`, `field.Label`, `field.Description`, `field.Message`, `field.Input`, `field.Textarea`, `field.Checkbox`, `field.RadioGroup`, `field.Toggle`
-- Layout: `field.Field` > `field.Label` > input > `field.Message`
-- Labels auto-bound via `nativeID` + `aria-labelledby`
-- `useFieldInvalid()`: errors show after touch OR first submit attempt
-- SubmitButton auto-disables with ActivityIndicator during submission
+- Mount form only after query data loads — NEVER pass `undefined` defaultValues
+- `form.reset()` after mutation: **await** `invalidateQueries` first — otherwise reset uses stale data
+
+## Multi-Step Forms
+
+- `<Activity mode="visible" | "hidden">` to preserve step state between steps
+- Each step is a `withForm` sub-form — data persists automatically
+
+## Submission
+
+- Submit button **always enabled** — `disabled` only during submission
+- `onSubmit({ value })` receives **raw input**, not Zod-transformed output — call `schema.parse(value)` if transforms are used
+
+## NEVER
+
+- **NEVER** use raw `useForm` — always `useAppForm`
+- **NEVER** use `@tanstack/zod-form-adapter` — Zod Standard Schema works natively
+- **NEVER** pass `undefined` defaultValues — mount form after data loads
+- **NEVER** disable submit button for validation — only during submission

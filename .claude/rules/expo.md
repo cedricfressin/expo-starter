@@ -1,72 +1,101 @@
 ---
 paths:
-  - '**/*.{ts,tsx}'
-  - 'app.json'
+  - '**/app/**/*.tsx'
+  - '**/app/**/*.ts'
+  - '**/app.config.ts'
+  - '**/app.json'
 ---
 
-# Expo / React Native
+# Expo Rules
 
-## Principles
+## File Structure
 
-- **Mobile-first** design, cross-platform with optimizations, managed workflow
-- Performance priorities: Load Time, Jank, Responsiveness
+- `app/` — Expo Router file-based routes and layouts (`_layout.tsx`, `index.tsx`, `[param].tsx`)
+- `app/(tabs)/` — tab group layout with `NativeTabs`
+- `app/(auth)/` — auth-gated route group
+- Route groups `(groupName)` for shared layouts without URL segment
+- Platform-specific: `.ios.tsx` > `.native.tsx` > `.tsx` resolution order
+- Keep platform files minimal — share logic via hooks, diverge on UI only
 
-## Navigation (expo-router)
+## Navigation
 
-- **`router` directly** (NEVER `useRouter()` hook), `<Link>` declarative, `<Redirect>` conditional
-- `router.navigate()`, `router.replace()`, `router.push()` for programmatic
-- Layouts via `_layout.tsx`
+- **`router`** from `expo-router` directly — never `useRouter()` hook
+- `<Link>` for declarative, `<Redirect>` for auth guards, `router.navigate/push/replace` for programmatic
+- Every screen should have a shareable URL — design routes as paths first
+- Validate dynamic route params (`[id]`, `[slug]`) — never trust raw input
+- External URLs → `expo-web-browser` (`openBrowserAsync`) — never `Linking.openURL` for https
+- Deep links handled automatically by Expo Router — no manual `Linking.addEventListener`
 
-## Expo 55+
+## SDK 55+ Navigation APIs
 
-- **NativeTabs**: prefer over `Tabs` for native tab bars, `NativeTabs.Trigger` with `.Icon`/`.Label`/`.Badge`, SF Symbols via `sf` prop, Material Symbols via `md` prop
-- **Stack.Toolbar** (iOS): in page components (not layouts), bottom default, `.Button`/`.Spacer`/`.Menu`
-- **SplitView** (iPad): root layout only, `SplitView.Column` for sidebar, `.Inspector` for detail
-- **Link Preview** (iOS only): `Link.Trigger` wraps content, `Link.Preview` for peek popup (custom JSX children override default snapshot), `useIsPreview()` to detect preview context
-- **Link Context Menu** (iOS only): `Link.Menu` > `Link.MenuAction` (`title`, `icon` SF Symbol, `onPress`, `destructive`), nestable via `<Link.Menu title icon>`
+- **`NativeTabs`** (`expo-router/unstable-native-tabs`) for all tab layouts — native tab bars on iOS (Liquid Glass) and Android (Material 3)
+- `NativeTabs.Trigger.Icon` — `sf` for SF Symbols (iOS), `md` for Material Symbols (Android)
+- `NativeTabs.BottomAccessory` — floating panel above tab bar (iOS 26+)
+- **`Stack.Toolbar`** — composable native toolbar (iOS only), in **page components only** (never layouts)
+- **`SplitView`** (`expo-router/unstable-split-view`) — iPad multi-column, **root layout level only**
+- **`Link.Preview`** / **`Link.Menu`** — iOS peek-and-pop + context menus, `useIsPreview()` to skip heavy work
 
-## Lists
+## Liquid Glass (`expo-glass-effect`)
 
-- **`FlatList`/`SectionList`** (virtualized), NEVER `.map()` in ScrollView
-- `@legendapp/list` for complex items, `getItemLayout` for fixed-height, stable `keyExtractor`
+- `GlassView` for iOS 26+ Liquid Glass surfaces — falls back to `View` on Android
+- `GlassContainer` to merge multiple glass views into unified effect
+- **Always guard** with `isGlassEffectAPIAvailable()` before rendering `GlassView`
+- Animate via `glassEffectStyle: { style, animate, animationDuration }` — never `opacity: 0`
 
-## Images & Animations
+## Images
 
-- **`expo-image`** with `placeholder={{ blurhash }}` (NEVER RN `<Image>`)
-- WebP for photos, SVG for icons, multiple densities (@2x, @3x)
-- **`react-native-reanimated`** (UI thread), `react-native-keyboard-controller` for keyboard
+- **`expo-image`** with `placeholder={{ blurhash }}` for all images
+- WebP for photos, SVG for icons, @2x/@3x densities, CDN delivery
+- `contentFit="cover"` for avatars/backgrounds, `"contain"` for content
 
 ## Platform & Device
 
-- `Platform.select()` for platform values, `useWindowDimensions()` for responsive
-- **`<Activity mode="hidden">`** instead of ternary/`&&` for heavy components
+- `process.env.EXPO_OS` for all platform checks — tree-shakeable, dead code eliminated at build time
+- `.ios.tsx` / `.android.tsx` / `.web.tsx` for significant behavior divergence
+- `useWindowDimensions()` for responsive (tablet >= 768) — never `Dimensions.get()`
+- Android: edge-to-edge mandatory (API 16+), handle system bar insets
+- `<Activity mode="hidden">` for tab/toggle state preservation (see react.md)
 
-## Deep Linking & URL Scheme
+## Config & Environment
 
-- **Custom scheme**: `{app_slug}://` for native deep links (configured in `app.json` → `scheme`)
-- **Universal Links (iOS)**: `associatedDomains` with `applinks:{domain}` (configured)
-- **App Links (Android)**: `intentFilters` with `autoVerify: true` (configured)
-- **Web**: routes map 1:1 with URLs — no extra configuration needed
-- **Every app screen should have a shareable URL** — design routes as paths first
-- **External URLs**: use `expo-web-browser` (`openBrowserAsync`) — NEVER `Linking.openURL` for https
-- **Incoming links**: handled automatically by Expo Router — no manual `Linking.addEventListener`
-- Universal Links: host `apple-app-site-association` + `assetlinks.json` at `/.well-known/`
+- `app.config.ts` for dynamic config with env vars
+- `expo-constants` (`Constants.expoConfig?.extra`) for runtime access
+- Config plugins for native configuration — never eject
+- `expo-dev-client` for custom dev builds
 
-## Security & Config
+## Security
 
-- `expo-constants` for env vars, individual modules for permissions
-- `expo-secure-store` with `requireAuthentication`, `expo-auth-session` for OAuth
+- `expo-secure-store` with `requireAuthentication: true` for tokens/keys
+- `expo-auth-session` for OAuth — never roll custom OAuth flows
+- `expo-crypto` for cryptographic operations
+- Individual permission modules (`expo-camera`, `expo-location`) — never `expo-permissions`
 
-## Anti-Patterns (NEVER)
+## OTA Updates
 
-- NEVER use `useRouter()` — use `router` directly from `expo-router`
-- NEVER use RN `<Image>` — use `expo-image` with `placeholder={{ blurhash }}`
-- NEVER use RN `Animated` — use `react-native-reanimated`
-- NEVER use `expo-permissions` — use individual module permissions
-- NEVER use inline styles or `console.log`
-- NEVER use `Tabs` — use `NativeTabs`
-- NEVER use `Stack.Toolbar` in layouts — only in page components
-- NEVER nest `SplitView` — root layout only
-- NEVER handle deep links manually with `Linking.addEventListener` — Expo Router handles it
-- NEVER use `Linking.openURL` for https URLs — use `expo-web-browser`
-- NEVER skip param validation on dynamic route segments
+- `expo-updates` for over-the-air delivery
+- Check → fetch → reload pattern: `checkForUpdateAsync()` → `fetchUpdateAsync()` → `reloadAsync()`
+
+## SDK 55 Module Migration
+
+- `expo-audio` replaces `expo-av` for audio (lock-screen, background, playlists)
+- `expo-video` replaces `expo-av` for video (PiP, stabilization)
+- `expo-blur` — stable Android support (RenderNode API, Android 12+)
+
+## NEVER
+
+- **NEVER** use `useRouter()` — use `router` directly from `expo-router`
+- **NEVER** use RN `<Image>` — use `expo-image` with blurhash placeholder
+- **NEVER** use `Tabs` from `expo-router` — use `NativeTabs` from `expo-router/unstable-native-tabs`
+- **NEVER** place `Stack.Toolbar` in `_layout.tsx` — page components only
+- **NEVER** nest `SplitView` — root layout level only
+- **NEVER** use `Linking.openURL` for https — use `expo-web-browser`
+- **NEVER** use `Linking.addEventListener` — Expo Router handles deep links
+- **NEVER** use `expo-av` — removed in SDK 55, use `expo-audio` + `expo-video`
+- **NEVER** use `Dimensions.get()` — use `useWindowDimensions()` (reactive)
+- **NEVER** use `opacity: 0` on `GlassView` — use `glassEffectStyle: 'none'` with `animate`
+- **NEVER** render `GlassView` without `isGlassEffectAPIAvailable()` guard
+- **NEVER** skip route param validation on dynamic segments
+- **NEVER** use `Platform.OS` or `Platform.select()` — use `process.env.EXPO_OS` (tree-shakeable)
+- **NEVER** use `TouchableOpacity` / `TouchableHighlight` — use `Pressable`
+- **NEVER** use `expo-linear-gradient` — use `experimental_backgroundImage`
+- **NEVER** use `expo-permissions` — use individual module permission APIs
