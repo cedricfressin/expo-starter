@@ -1,7 +1,6 @@
 import * as TogglePrimitive from '@rn-primitives/toggle'
 import { cva, type VariantProps } from 'class-variance-authority'
-import * as React from 'react'
-import { Platform } from 'react-native'
+import { type ComponentProps, type RefAttributes, useContext } from 'react'
 import { Icon } from '~/components/ui/icon'
 import { TextClassContext } from '~/components/ui/text'
 import { cn } from '~/lib/utils/cn'
@@ -9,9 +8,8 @@ import { cn } from '~/lib/utils/cn'
 const toggleVariants = cva(
   cn(
     'active:bg-muted group flex flex-row items-center justify-center gap-2 rounded-md',
-    Platform.select({
-      web: 'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex cursor-default whitespace-nowrap outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:pointer-events-none [&_svg]:pointer-events-none'
-    })
+    process.env.EXPO_OS === 'web' &&
+      'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex cursor-default whitespace-nowrap outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:pointer-events-none [&_svg]:pointer-events-none'
   ),
   {
     variants: {
@@ -19,9 +17,8 @@ const toggleVariants = cva(
         default: 'bg-transparent',
         outline: cn(
           'border-input active:bg-accent border bg-transparent shadow-sm shadow-black/5',
-          Platform.select({
-            web: 'hover:bg-accent hover:text-accent-foreground'
-          })
+          process.env.EXPO_OS === 'web' &&
+            'hover:bg-accent hover:text-accent-foreground'
         )
       },
       size: {
@@ -44,14 +41,15 @@ function Toggle({
   ...props
 }: TogglePrimitive.RootProps &
   VariantProps<typeof toggleVariants> &
-  React.RefAttributes<TogglePrimitive.RootRef>) {
+  RefAttributes<TogglePrimitive.RootRef>) {
   return (
     <TextClassContext.Provider
       value={cn(
         'text-sm text-foreground font-medium',
         props.pressed
           ? 'text-accent-foreground'
-          : Platform.select({ web: 'group-hover:text-muted-foreground' }),
+          : process.env.EXPO_OS === 'web' &&
+              'group-hover:text-muted-foreground',
         className
       )}
     >
@@ -68,11 +66,8 @@ function Toggle({
   )
 }
 
-function ToggleIcon({
-  className,
-  ...props
-}: React.ComponentProps<typeof Icon>) {
-  const textClass = React.useContext(TextClassContext)
+function ToggleIcon({ className, ...props }: ComponentProps<typeof Icon>) {
+  const textClass = useContext(TextClassContext)
   return (
     <Icon className={cn('size-4 shrink-0', textClass, className)} {...props} />
   )

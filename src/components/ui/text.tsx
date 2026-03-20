@@ -1,15 +1,18 @@
 import * as Slot from '@rn-primitives/slot'
 import { cva, type VariantProps } from 'class-variance-authority'
-import * as React from 'react'
-import { Platform, Text as RNText, type Role } from 'react-native'
+import {
+  type ComponentProps,
+  createContext,
+  type RefAttributes,
+  useContext
+} from 'react'
+import { Text as RNText, type Role } from 'react-native'
 import { cn } from '~/lib/utils/cn'
 
 const textVariants = cva(
   cn(
     'text-foreground text-base',
-    Platform.select({
-      web: 'select-text'
-    })
+    process.env.EXPO_OS === 'web' && 'select-text'
   ),
   {
     variants: {
@@ -17,19 +20,19 @@ const textVariants = cva(
         default: '',
         h1: cn(
           'text-center text-4xl font-extrabold tracking-tight',
-          Platform.select({ web: 'scroll-m-20 text-balance' })
+          process.env.EXPO_OS === 'web' && 'scroll-m-20 text-balance'
         ),
         h2: cn(
           'border-border border-b pb-2 text-3xl font-semibold tracking-tight',
-          Platform.select({ web: 'scroll-m-20 first:mt-0' })
+          process.env.EXPO_OS === 'web' && 'scroll-m-20 first:mt-0'
         ),
         h3: cn(
           'text-2xl font-semibold tracking-tight',
-          Platform.select({ web: 'scroll-m-20' })
+          process.env.EXPO_OS === 'web' && 'scroll-m-20'
         ),
         h4: cn(
           'text-xl font-semibold tracking-tight',
-          Platform.select({ web: 'scroll-m-20' })
+          process.env.EXPO_OS === 'web' && 'scroll-m-20'
         ),
         p: 'mt-3 leading-7 sm:mt-6',
         blockquote: 'mt-4 border-l-2 pl-3 italic sm:mt-6 sm:pl-6',
@@ -57,8 +60,9 @@ const ROLE: Partial<Record<TextVariant, Role>> = {
   h2: 'heading',
   h3: 'heading',
   h4: 'heading',
-  blockquote: Platform.select({ web: 'blockquote' as Role }),
-  code: Platform.select({ web: 'code' as Role })
+  blockquote:
+    process.env.EXPO_OS === 'web' ? ('blockquote' as Role) : undefined,
+  code: process.env.EXPO_OS === 'web' ? ('code' as Role) : undefined
 }
 
 const ARIA_LEVEL: Partial<Record<TextVariant, string>> = {
@@ -68,19 +72,19 @@ const ARIA_LEVEL: Partial<Record<TextVariant, string>> = {
   h4: '4'
 }
 
-const TextClassContext = React.createContext<string | undefined>(undefined)
+const TextClassContext = createContext<string | undefined>(undefined)
 
 function Text({
   className,
   asChild = false,
   variant = 'default',
   ...props
-}: React.ComponentProps<typeof RNText> &
+}: ComponentProps<typeof RNText> &
   TextVariantProps &
-  React.RefAttributes<RNText> & {
+  RefAttributes<RNText> & {
     asChild?: boolean
   }) {
-  const textClass = React.useContext(TextClassContext)
+  const textClass = useContext(TextClassContext)
   const Component = asChild ? Slot.Text : RNText
   return (
     <Component

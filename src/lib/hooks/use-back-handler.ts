@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BackHandler, Platform } from 'react-native'
+import { BackHandler } from 'react-native'
 
 /**
  * Hook to handle Android hardware back button press.
@@ -9,7 +9,7 @@ import { BackHandler, Platform } from 'react-native'
  */
 export function useBackHandler(handler: () => boolean) {
   useEffect(() => {
-    if (Platform.OS !== 'android') {
+    if (process.env.EXPO_OS !== 'android') {
       return
     }
 

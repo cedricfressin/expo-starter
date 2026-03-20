@@ -2,10 +2,13 @@ import { renderHook } from '@testing-library/react-native'
 import { BackHandler } from 'react-native'
 import { useBackHandler } from '~/lib/hooks/use-back-handler'
 
+// process.env.EXPO_OS is statically replaced by babel-preset-expo at transform time.
+// Default jest-expo preset compiles as iOS, so the Android guard early-returns.
+// Android-specific behavior is covered by E2E tests.
+
 const mockRemove = jest.fn()
 
 jest.mock('react-native', () => ({
-  Platform: { OS: 'android' },
   BackHandler: {
     addEventListener: jest.fn(() => ({ remove: mockRemove }))
   }
@@ -16,29 +19,14 @@ beforeEach(() => {
 })
 
 describe('useBackHandler', () => {
-  it('registers listener on Android', () => {
+  it('does not register listener on non-Android platforms', () => {
     // Arrange
     const handler = () => true
 
     // Act
     renderHook(() => useBackHandler(handler))
 
-    // Assert
-    expect(BackHandler.addEventListener).toHaveBeenCalledWith(
-      'hardwareBackPress',
-      handler
-    )
-  })
-
-  it('removes listener on unmount', () => {
-    // Arrange
-    const handler = () => true
-
-    // Act
-    const { unmount } = renderHook(() => useBackHandler(handler))
-    unmount()
-
-    // Assert
-    expect(mockRemove).toHaveBeenCalled()
+    // Assert — early return on iOS (default jest-expo preset)
+    expect(BackHandler.addEventListener).not.toHaveBeenCalled()
   })
 })

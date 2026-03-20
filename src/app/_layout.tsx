@@ -1,6 +1,5 @@
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
-import { Platform } from 'react-native'
 import '~/global.css'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
@@ -27,7 +26,7 @@ export default function RootLayout() {
     }
   }, [fontLoaded])
 
-  if (Platform.OS !== 'web' && !fontLoaded) {
+  if (process.env.EXPO_OS !== 'web' && !fontLoaded) {
     return
   }
 

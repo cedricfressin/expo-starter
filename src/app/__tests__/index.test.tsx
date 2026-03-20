@@ -1,18 +1,14 @@
 import { Redirect } from 'expo-router'
-import { Platform } from 'react-native'
 import { setup } from '~/tests/setup'
 import Index from '..'
 
-describe('Index', () => {
-  const originalOS = Platform.OS
+// process.env.EXPO_OS is statically replaced by babel-preset-expo at transform time.
+// Default jest-expo preset compiles as iOS, so only the native branch is testable here.
+// Web redirect behavior is covered by E2E tests (.maestro/public/landing.web.yaml).
 
+describe('Index', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.resetModules()
-  })
-
-  afterEach(() => {
-    Platform.OS = originalOS
   })
 
   it('redirects to app on native', () => {
@@ -21,16 +17,5 @@ describe('Index', () => {
 
     // Assert
     expect(Redirect).toHaveBeenCalledWith({ href: '/(app)' }, undefined)
-  })
-
-  it('redirects to landing page on web', () => {
-    // Arrange
-    Platform.OS = 'web'
-
-    // Act
-    setup(<Index />)
-
-    // Assert
-    expect(Redirect).toHaveBeenCalledWith({ href: '/(public)' }, undefined)
   })
 })
