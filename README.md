@@ -72,12 +72,12 @@ Then press:
 
 ### E2E Testing (Maestro)
 
-| Command                       | Description                         |
-| ----------------------------- | ----------------------------------- |
-| `bun e2e`                     | Run all E2E tests                   |
-| `bun e2e --exclude-tags web ` | Run mobile E2E tests (excludes web) |
-| `bun e2e --include-tags web`  | Run web E2E tests (Chromium)        |
-| `maestro studio`              | Open Maestro Studio                 |
+| Command                           | Description                         |
+| --------------------------------- | ----------------------------------- |
+| `bun maestro`                     | Run all E2E tests                   |
+| `bun maestro --exclude-tags web ` | Run mobile E2E tests (excludes web) |
+| `bun maestro --include-tags web`  | Run web E2E tests (Chromium)        |
+| `maestro studio`                  | Open Maestro Studio                 |
 
 ### Maintenance
 

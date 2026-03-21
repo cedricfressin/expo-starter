@@ -71,9 +71,9 @@ Detailed conventions are auto-loaded from `.claude/rules/` based on file paths b
 - `bun clean` - Clean artifacts/caches
 - `bun run test` - Run all tests suites with coverage report
 - `bun run test --findRelatedTests <file>` - Run on changed and related files
-- `bun e2e` - Run all E2E tests
-- `bun e2e --exclude-tags web` - Mobile E2E tests only
-- `bun e2e --include-tags web` - Web E2E tests (Chromium)
+- `bun maestro` - Run all E2E tests
+- `bun maestro --exclude-tags web` - Mobile E2E tests only
+- `bun maestro --include-tags web` - Web E2E tests (Chromium)
 - `bun i18n` - Extract translation messages from source code (runs automatically on pre-commit hook)
 - `bun knip` - Find unused dependencies
 - `bun x snyk test` - Security vulnerability scan

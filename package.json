@@ -9,7 +9,7 @@
     "build": "expo export -p web -s",
     "serve": "expo serve",
     "test": "jest",
-    "e2e": "maestro test .maestro/",
+    "maestro": "maestro test .maestro/",
     "i18n": "lingui extract",
     "lint": "ultracite fix",
     "typecheck": "tsc --noEmit",

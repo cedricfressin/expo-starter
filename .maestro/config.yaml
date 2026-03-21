@@ -2,7 +2,7 @@
 # https://docs.maestro.dev
 
 env:
-  APP_ID: '{app_slug}'
+  APP_ID: '{app_bundle_identifier}'
   BASE_URL: 'http://localhost:8081'
 
 # Flow discovery
