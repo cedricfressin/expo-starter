@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react-native'
-import AppIndex from '~/app/(app)/index'
+import Index from '~/app/(app)/index'
 import { setup } from '~/tests/setup'
 
-describe('AppIndex', () => {
+describe('Index', () => {
   it('renders the app heading', () => {
     // Act
-    setup(<AppIndex />)
+    setup(<Index />)
 
     // Assert
-    expect(screen.getByRole('heading', { name: 'App Index' })).toBeOnTheScreen()
+    expect(screen.getByRole('heading', { name: 'Index' })).toBeOnTheScreen()
   })
 })

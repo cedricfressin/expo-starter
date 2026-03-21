@@ -3,7 +3,7 @@ import Head from 'expo-router/head'
 import { View } from 'react-native'
 import { Text } from '~/components/ui/text'
 
-export default function AppIndex() {
+export default function Index() {
   const { t } = useLingui()
 
   return (
@@ -13,7 +13,7 @@ export default function AppIndex() {
       </Head>
       <View className="flex-1 p-safe">
         <Text variant="h1">
-          <Trans>App Index</Trans>
+          <Trans>Index</Trans>
         </Text>
       </View>
     </>

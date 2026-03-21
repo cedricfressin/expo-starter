@@ -22,10 +22,6 @@ msgstr "{slug} - {appName}"
 msgid "App"
 msgstr "App"
 
-#: src/app/(app)/index.tsx:16
-msgid "App Index"
-msgstr "App Index"
-
 #: src/features/navigation/public-footer.tsx:9
 msgid "Footer"
 msgstr "Footer"
@@ -33,6 +29,10 @@ msgstr "Footer"
 #: src/features/navigation/public-header.tsx:9
 msgid "Header"
 msgstr "Header"
+
+#: src/app/(app)/index.tsx:16
+msgid "Index"
+msgstr "Index"
 
 #: src/app/(public)/index.tsx:21
 msgid "Landing Page"
