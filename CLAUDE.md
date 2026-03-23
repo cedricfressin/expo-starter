@@ -55,7 +55,8 @@ Detailed conventions are auto-loaded from `.claude/rules/` based on file paths b
 - **Universal App**: targets mobile native (iOS/Android) and web — always consider both platforms
 - **Platform-specific**: Use `.web.ts` / `.native.ts` suffixes for platform code
 - **React Compiler**: Enabled — trust auto-memoization, NEVER use manual `useMemo`/`useCallback`/`memo`
-- **Documentation First (CRITICAL)**: When configuring or setting up a library or SDK — ALWAYS check official documentation using Context7 MCP (`resolve-library-id` → `query-docs`) and/or web search (use parallel agents for both). NEVER trust trained knowledge alone — it may be outdated.
+- **Documentation First (CRITICAL)**: Always use Context7 when you need library/API documentation, code generation, setup or configuration steps — without the user having to explicitly ask. NEVER trust trained knowledge alone — it may be outdated.
+- **Never remove existing comments** (unless resolved `TODO:`, `FIXME:`, `HACK:` etc)
 
 > See `.claude/rules/` for full conventions (auto-loaded per file path)
 
